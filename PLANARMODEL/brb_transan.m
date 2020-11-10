@@ -141,7 +141,8 @@ type = 'WGN';
 % famp = 1;  % 0.01
 bw = -1;
 
-rand("seed", 1);
+% rand("seed", 1);
+rng(sd);
 fext = wgn(length(T), 1, 40+20*log10(famp))';
 FEX = @(t) Ln'*Fin*interp1(T, fext, t)+Ln'*Fbolt*Prestress;
 
