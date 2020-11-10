@@ -144,6 +144,7 @@ tic
                 FEXv, opts);
 toc 
 
+%%
 Wlin = sqrt(sort(eig(J0, MDL.M)))/2/pi;
 
 figure(2)
@@ -159,20 +160,20 @@ udd = (Ln'*Finp)'*Udd;
 [freqs, Ff] = FFTFUN(T, fext');
 
 figure(3)
-% clf()
+clf()
 subplot(2,1, 1)
 plot(freqs, 20*log10(abs(Uf./Ff))); hold on 
 grid on
-for i=1:10
-  plot(Wlin(i)*[1 1], ylim, 'k--')
-end 
+% for i=1:10
+%   plot(Wlin(i)*[1 1], ylim, 'k--')
+% end 
 ylabel('|FRF| (dB)')
 
 subplot(2,1, 2)
 plot(freqs, rad2deg(angle(Uf./Ff))); hold on 
-for i=1:10
-  plot(Wlin(i)*[1 1], ylim, 'k--')
-end 
+% for i=1:10
+%   plot(Wlin(i)*[1 1], ylim, 'k--')
+% end 
 grid on
 
 xlabel('Frequency (Hz)')

@@ -114,7 +114,7 @@ ylim([-1 1]*0.125)
 
 %% Transient impulse response 
 % fsamp = 12800;
-T0 = 0; T1 = 1;
+T0 = 0; T1 = 0.05;
 dt = 1/fsamp;
 T = (T0:dt:T1)';
 
@@ -149,7 +149,7 @@ fext = wgn(length(T), 1, 40+20*log10(famp))';
 FEX = @(t) Ln'*Fin*interp1(T, fext, t)+Ln'*Fbolt*Prestress;
 
 %% HHTA Nonlinear Implicit Time integration
-opts = struct('Display', 'progress');
+opts = struct('Display', 'waitbar');
 
 FEXv = (Ln'*Fin).*fext + Ln'*Fbolt*Prestress;
 
@@ -159,8 +159,41 @@ tic
 [T, U, Ud, Udd, MDL] = MDL.HHTAMARCH(T0, T1, dt, Ustat, zeros(size(Ustat)), ...
                     FEXv, opts);
 toc
-    
-fprintf('Done repeat %d/%d\n', ir, Nreps);
 
 fname = sprintf('./DATS/%dIN_%sRESP_%s%d_samp%d_r%d.mat', Nein, type, DOF, famp, log2(fsamp), sd);
-save(fname, 'T', 'U', 'Ud', 'Udd', 'fext', 'Finp', 'Fin', 'Nrep');
+% save(fname, 'T', 'U', 'Ud', 'Udd', 'fext', 'Finp', 'Fin', 'Nrep');
+
+%%
+Wlin = sqrt(sort(eig(J0, MDL.M)))/2/pi;
+
+figure(2)
+clf()
+plot(T, (Ln'*Finp)'*Udd, '.-')
+% plotyy(T, (Ln'*Finp)'*Udd, T, fext)
+
+xlabel('Time (s)')
+ylabel('Response')
+
+udd = (Ln'*Finp)'*Udd;
+[freqs, Uf] = FFTFUN(T, udd');
+[freqs, Ff] = FFTFUN(T, fext');
+
+figure(3)
+clf()
+subplot(2,1, 1)
+plot(freqs, 20*log10(abs(Uf./Ff))); hold on 
+grid on
+% for i=1:10
+%   plot(Wlin(i)*[1 1], ylim, 'k--')
+% end 
+ylabel('|FRF| (dB)')
+
+subplot(2,1, 2)
+plot(freqs, rad2deg(angle(Uf./Ff))); hold on 
+% for i=1:10
+%   plot(Wlin(i)*[1 1], ylim, 'k--')
+% end 
+grid on
+
+xlabel('Frequency (Hz)')
+ylabel('Phase (degs)')
