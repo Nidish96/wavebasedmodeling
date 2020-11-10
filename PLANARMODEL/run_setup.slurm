@@ -18,12 +18,12 @@ echo "A=$A"
 #
 module load MATLAB/2019a
 
-matlab -nodisplay -r "fsamp=2^$SMP; DOF=$DOF; famp=$FMP; brb_transan; quit"
+matlab -nodisplay -r "fsamp=2^$SMP; DOF=$DOF; famp=$FMP; sd=$REP; brb_transan_sing; quit"
 
 # matlab -nodisplay -r "Ca_savedat('Y'); quit"
 
 
 
-# NEED TO SET VARIABLES SMP,DOF,FMP. Sample:
-# sbatch --export=ALL,SMP=18,DOF='X',FMP=0.01 --job-name=18X-2 run_setup.slurm
+# NEED TO SET VARIABLES SMP,DOF,FMP,REP. Sample:
+# sbatch --export=ALL,SMP=18,DOF='X',FMP=0.01,REP=4 --job-name=18X-2 run_setup.slurm
 
