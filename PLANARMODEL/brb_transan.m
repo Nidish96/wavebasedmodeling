@@ -1,5 +1,5 @@
 %clc
-clear all 
+% clear all 
 addpath('../ROUTINES/')
 addpath('../ROUTINES/export_fig/')
 addpath('../ROUTINES/FEM')
@@ -116,7 +116,7 @@ ylim([-1 1]*0.125)
 % fsamp = 12800;
 T0 = 0; T1 = 1;
 dt = 1/fsamp;
-T = T0:dt:T1;
+T = (T0:dt:T1)';
 
 %% Excitation
 switch DOF
@@ -128,6 +128,8 @@ switch DOF
         Fin = Finp(:, 3);
 end
 
+Nreps = 4;
+
 % Haversine impulse 
 type = 'IMP';
 % bw = 1000;
@@ -138,24 +140,38 @@ type = 'IMP';
 
 % White Gaussian Noise
 type = 'WGN';
-% famp = 1;  % 0.01
+% famp = 10;  % 0.01
 bw = -1;
 
 rand("seed", 1);
-fext = wgn(length(T), 1, 40+20*log10(famp))';
-FEX = @(t) Ln'*Fin*interp1(T, fext, t)+Ln'*Fbolt*Prestress;
+
+U = zeros(MDL.Ndofs, length(T), Nreps);
+Ud = zeros(MDL.Ndofs, length(T), Nreps);
+Udd = zeros(MDL.Ndofs, length(T), Nreps);
+
+fprintf('Simulating with type %s, F %d, exciting %s, sampled at %d Hz\n', type, famp, DOF, famp);
+
+for ir=1:Nreps
+    fext = wgn(length(T), 1, 40+20*log10(famp))';
+    FEX = @(t) Ln'*Fin*interp1(T, fext, t)+Ln'*Fbolt*Prestress;
 
 %% HHTA Nonlinear Implicit Time integration
-opts = struct('Display', 'waitbar');
+    opts = struct('Display', 'waitbar');
 
-FEXv = (Ln'*Fin).*fext + Ln'*Fbolt*Prestress;
+    FEXv = (Ln'*Fin).*fext + Ln'*Fbolt*Prestress;
 
-[~, ~, ~, MDL] = MDL.NLFORCE(0, Ustat, zeros(size(Ustat)), 0, 1);
+    [~, ~, ~, MDL] = MDL.NLFORCE(0, Ustat, zeros(size(Ustat)), 0, 1);
 
-tic 
-[T, U, Ud, Udd, MDL] = MDL.HHTAMARCH(T0, T1, dt, Ustat, zeros(size(Ustat)), ...
-                FEXv, opts);
-toc 
-
-fname = sprintf('./DATA/%dIN_%sRESP_%s%d_samp%d.mat', Nein, type, DOF, famp, log2(fsamp));
-save(fname, 'T', 'U', 'Ud', 'Udd', 'fext', 'Finp', 'Fin');
+    tic 
+    [Th, Uh, Udh, Uddh, MDLh] = MDL.HHTAMARCH(T0, T1, dt, Ustat, zeros(size(Ustat)), ...
+                        FEXv, opts);
+    toc
+    
+    U(:, 1:length(Th), ir) = Uh;
+    Ud(:, 1:length(Th), ir) = Udh;
+    Udd(:, 1:length(Th), ir) = Uddh;
+    
+    fprintf('Done repeat %d/%d\n', ir, Nreps);
+end
+fname = sprintf('./DATS/%dIN_%sRESP_%s%d_samp%d.mat', Nein, type, DOF, famp, log2(fsamp));
+save(fname, 'T', 'U', 'Ud', 'Udd', 'fext', 'Finp', 'Fin', 'Nrep');
