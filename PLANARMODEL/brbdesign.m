@@ -45,14 +45,14 @@ BM2 = struct('X', linspace(Lmono+Lint, Lmono+Lint+Lmono, Nemono+1)', ...
              'Wi', wdt, ... % in-plane width 
              'Wo', wdt);  % out-of-plane width 
 
-##figure(1)
-##clf()
-##plot(BM1.X, BM1.Y, 'ko-'); hold on 
-##plot(IN1.X, IN1.Y, 'bo-'); 
-##plot(BM2.X, BM2.Y, 'kx-'); hold on 
-##plot(IN2.X, IN2.Y, 'rx-')
-##
-##grid on 
+%##figure(1)
+%##clf()
+%##plot(BM1.X, BM1.Y, 'ko-'); hold on 
+%##plot(IN1.X, IN1.Y, 'bo-'); 
+%##plot(BM2.X, BM2.Y, 'kx-'); hold on 
+%##plot(IN2.X, IN2.Y, 'rx-')
+%##
+%##grid on 
 
 %axis equal 
 xlim([-0.1 0.4])
@@ -228,16 +228,16 @@ save('./DATS/BRBMATS.mat', 'Mbrb', 'Kbrb', 'Kbolt', 'Mbolt', 'Fbolt', 'Qrel', ..
             'Q2', 'T2', 'BoltLocs', 'Lmono', 'Lint', 'nu', 'Xqps', 'Fboltd', '-v7');
 
 % Fixed Interface
-##Rm = Ri1*L1 - Ri2*L2; 
-##Lfix = null(Rm([1:3:end 2:3:end],:));  
+%##Rm = Ri1*L1 - Ri2*L2; 
+%##Lfix = null(Rm([1:3:end 2:3:end],:));  
 
 % Stiff compliant interface 
 krel = zeros(Nein*Nqp*2,1);
 krel(1:2:end) = 1e6;  % tangential
 krel(2:2:end) = 1e9;  % normal 
 Kstiff = Trel*diag(krel)*Qrel;
-##Lfix = eye(size(Kbrb));  
-##Kbrb = Kbrb+Kstiff;
+%#Lfix = eye(size(Kbrb));  
+%#Kbrb = Kbrb+Kstiff;
 
 % Bolted Interface
 Lfix = eye(size(Kbrb));
@@ -263,11 +263,11 @@ plot(BM2.X, BM2.Y, 'ko-'); hold on
 plot(IN2.X, IN2.Y, 'ko-'); hold on 
 grid on 
 
-##PLANARBMDEPICT(L1(1:(Nemono+1)*3, :)*Vs(:, mi)*sc, BM1, 'b', 0.1);
-##PLANARBMDEPICT(L1((Nemono+1)*3+(1:(Nein+1)*3), :)*Vs(:, mi)*sc, IN1, 'b', 0.1);
-##
-##PLANARBMDEPICT(L2((Nein+1)*3+(1:(Nemono+1)*3), :)*Vs(:, mi)*sc, BM2, 'r', 0.1);
-##PLANARBMDEPICT(L2(1:(Nein+1)*3, :)*Vs(:, mi)*sc, IN2, 'r', 0.1);
+%#PLANARBMDEPICT(L1(1:(Nemono+1)*3, :)*Vs(:, mi)*sc, BM1, 'b', 0.1);
+%#PLANARBMDEPICT(L1((Nemono+1)*3+(1:(Nein+1)*3), :)*Vs(:, mi)*sc, IN1, 'b', 0.1);
+%#
+%#PLANARBMDEPICT(L2((Nein+1)*3+(1:(Nemono+1)*3), :)*Vs(:, mi)*sc, BM2, 'r', 0.1);
+%#PLANARBMDEPICT(L2(1:(Nein+1)*3, :)*Vs(:, mi)*sc, IN2, 'r', 0.1);
 
 PLANARBMDEPICT(L1(1:(Nemono+1)*3, :)*Vs(:, mi)*sc, BM1, 'gxy', 0.6);
 PLANARBMDEPICT(L1((Nemono+1)*3+(1:(Nein+1)*3), :)*Vs(:, mi)*sc, IN1, 'gxy', 0.6);

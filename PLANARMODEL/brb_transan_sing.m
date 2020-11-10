@@ -159,8 +159,6 @@ tic
 [T, U, Ud, Udd, MDL] = MDL.HHTAMARCH(T0, T1, dt, Ustat, zeros(size(Ustat)), ...
                     FEXv, opts);
 toc
-    
-fprintf('Done repeat %d/%d\n', ir, Nreps);
 
 fname = sprintf('./DATS/%dIN_%sRESP_%s%d_samp%d_r%d.mat', Nein, type, DOF, famp, log2(fsamp), sd);
 save(fname, 'T', 'U', 'Ud', 'Udd', 'fext', 'Finp', 'Fin', 'Nrep');
