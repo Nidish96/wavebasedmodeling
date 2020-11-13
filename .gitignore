@@ -3,3 +3,14 @@
 *.dat 
 slurm-*.out
 
+*eps-converted-to.pdf
+REPORTS/*/auto
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz

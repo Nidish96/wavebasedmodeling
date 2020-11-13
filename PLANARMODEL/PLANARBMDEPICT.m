@@ -10,18 +10,18 @@ function [] = PLANARBMDEPICT(U, BM, varargin)
   end
   
 %% Small Angle Assumption  
-  Top_X = BM.X+U(1:3:end) - U(3:3:end)*BM.Wi/2;
-  Top_Y = BM.Y+U(2:3:end) + BM.Wi/2;
-  
-  Bot_X = BM.X+U(1:3:end) + U(3:3:end)*BM.Wi/2;
-  Bot_Y = BM.Y+U(2:3:end) - BM.Wi/2;  
+%   Top_X = BM.X+U(1:3:end) - U(3:3:end)*BM.Wi/2;
+%   Top_Y = BM.Y+U(2:3:end) + BM.Wi/2;
+%   
+%   Bot_X = BM.X+U(1:3:end) + U(3:3:end)*BM.Wi/2;
+%   Bot_Y = BM.Y+U(2:3:end) - BM.Wi/2;  
   
 %% Large Angle  
-%  Top_X = BM.X+U(1:3:end) - sin(U(3:3:end))*BM.Wi/2;
-%  Top_Y = BM.Y+U(2:3:end) + cos(U(3:3:end))*BM.Wi/2;
+ Top_X = BM.X+U(1:3:end) - sin(U(3:3:end))*BM.Wi/2;
+ Top_Y = BM.Y+U(2:3:end) + cos(U(3:3:end))*BM.Wi/2;
   
-%  Bot_X = BM.X+U(1:3:end) + sin(U(3:3:end))*BM.Wi/2;
-%  Bot_Y = BM.Y+U(2:3:end) - cos(U(3:3:end))*BM.Wi/2;
+ Bot_X = BM.X+U(1:3:end) + sin(U(3:3:end))*BM.Wi/2;
+ Bot_Y = BM.Y+U(2:3:end) - cos(U(3:3:end))*BM.Wi/2;
   
   
   %% Plotting

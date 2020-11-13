@@ -45,18 +45,18 @@ BM2 = struct('X', linspace(Lmono+Lint, Lmono+Lint+Lmono, Nemono+1)', ...
              'Wi', wdt, ... % in-plane width 
              'Wo', wdt);  % out-of-plane width 
 
-%##figure(1)
-%##clf()
-%##plot(BM1.X, BM1.Y, 'ko-'); hold on 
-%##plot(IN1.X, IN1.Y, 'bo-'); 
-%##plot(BM2.X, BM2.Y, 'kx-'); hold on 
-%##plot(IN2.X, IN2.Y, 'rx-')
-%##
-%##grid on 
+% figure(1)
+% clf()
+% plot(BM1.X, BM1.Y, 'ko-'); hold on 
+% plot(IN1.X, IN1.Y, 'bo-'); 
+% plot(BM2.X, BM2.Y, 'kx-'); hold on 
+% plot(IN2.X, IN2.Y, 'rx-')
+% 
+% grid on 
 
-%axis equal 
-xlim([-0.1 0.4])
-ylim([-0.25 0.25])
+% axis equal 
+% xlim([-0.1 0.4])
+% ylim([-0.25 0.25])
 
 
 %% Matrices 
