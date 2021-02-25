@@ -21,8 +21,9 @@ Le = INm.X(2)-INm.X(1);
 ks = linspace(0, 2*2*pi/Le, 2000); ks(1) = [];
 [ws, wbyks, dwdks] = TIMOWSPDS(ks, pars);  % Solution of dispersion relationship
 
-Lrem = range(INm.X)*80; 
-Nerem = fix(Lrem/Le);
+% Lrem = range(INm.X)*80; 
+Lrem = 12.5;
+% Nerem = fix(Lrem/Le);
 Nerem = 100;
 Lerem = Lrem/Nerem;
 
@@ -118,6 +119,11 @@ for e=1:Nesp
     % Integration of Ramped Damping for sponge region
     maxom_tr = cmax/(Lesp*pars.A);
     maxom_ax = caxl/(Lesp*pars.A);
+    maxom_tr2 = sqrt(pars.G/pars.rho)/Lesp*pars.A;
+    
+%     maxom_tr = maxom_tr*(pars.rho*pars.A);
+%     maxom_ax = maxom_ax*(pars.rho*pars.A);
+%     maxom_tr2 = maxom_tr2*(pars.rho*pars.Iz);
     
     % BMsp1
     Xqps1 = Nsf*BMsp1.X(n1:n2);
@@ -127,6 +133,8 @@ for e=1:Nesp
         (Nsf'*diag((maxom_ax/Lesp)*etax.*wi)*Nsf)*Lesp/2*pars.A;  % For axial waves
     Cs1(([n1 n2]-1)*3+2, ([n1 n2]-1)*3+2) = Cs1(([n1 n2]-1)*3+2, ([n1 n2]-1)*3+2) + ...
         (Nsf'*diag((maxom_tr/Lesp)*etax.*wi)*Nsf)*Lesp/2*pars.A;  % For transverse waves
+    Cs1(([n1 n2]-1)*3+3, ([n1 n2]-1)*3+3) = Cs1(([n1 n2]-1)*3+3, ([n1 n2]-1)*3+3) + ...
+        (Nsf'*diag((maxom_tr2/Lesp)*etax.*wi)*Nsf)*Lesp/2*pars.A;  % For transverse waves 2
     
 %     figure(2)
 %     plot(Xqps1, etax, '.-'); hold on
@@ -139,6 +147,8 @@ for e=1:Nesp
         (Nsf'*diag((maxom_ax/Lesp)*etax.*wi)*Nsf)*Lesp/2*pars.A;  % For axial waves
     Cs2(([n1 n2]-1)*3+2, ([n1 n2]-1)*3+2) = Cs2(([n1 n2]-1)*3+2, ([n1 n2]-1)*3+2) + ...
         (Nsf'*diag((maxom_tr/Lesp)*etax.*wi)*Nsf)*Lesp/2*pars.A;  % For transverse waves
+    Cs2(([n1 n2]-1)*3+3, ([n1 n2]-1)*3+3) = Cs2(([n1 n2]-1)*3+3, ([n1 n2]-1)*3+3) + ...
+        (Nsf'*diag((maxom_tr2/Lesp)*etax.*wi)*Nsf)*Lesp/2*pars.A;  % For transverse waves 2
     
 %     figure(3)
 %     plot(Xqps2, etax, '.-'); hold on
@@ -190,9 +200,9 @@ for i=1:length(ndstarts)
 end
 
 %% "Sensor" Locations
-NsensperBM = 5;  % Number of sensors per BM1/BM2 regions;
-SLocs1 = linspace(BM1.X(1), BM1.X(end), NsensperBM);
-SLocs2 = linspace(BM2.X(1), BM2.X(end), NsensperBM);
+NsensperBM = 20;  % Number of sensors per BM1/BM2 regions;
+SLocs1 = linspace(BM1.X(1), BM1.X(end), NsensperBM+2);  SLocs1([1 end]) = [];
+SLocs2 = linspace(BM2.X(1), BM2.X(end), NsensperBM+2);  SLocs2([1 end]) = [];
 
 % Sensors located analogously on both, and since they're symmetric, there's
 % no need to construct interpolants separately
@@ -215,7 +225,7 @@ Lsens1 = [zeros(NsensperBM*3, length(BMsp1.X)*3) Lsens zeros(NsensperBM*3, lengt
 Lsens2 = [zeros(NsensperBM*3, length([BMsp1.X; BM1.X; INm.X])*3) Lsens zeros(NsensperBM*3, length(BMsp2.X)*3)]*Lassnt;
 
 % Forcing vector at sensor "sin" in BM1 along DOF "din"
-fin = 3;
+fin = ceil(NsensperBM/2);
 din = 2;
 Fex = Lsens1((fin-1)*3+din, :)';
 
@@ -241,11 +251,14 @@ wndw = [hanning(Np2); zeros(length(T)-Np2,1)];
 % din = 2;
 % Fex = MODBMs{2}.L((nin-1)*3+din, :)';
 
+U0 = zeros(MDL.Ndofs, 1);
+Ud0 = zeros(MDL.Ndofs, 1);
+
 opts = struct('Display', 'waitbar');
 
 tic
 [T, U, Ud, Udd] = MDL.HHTAMARCH(T0, T1, 1/fsamp, ...
-    zeros(MDL.Ndofs,1), zeros(MDL.Ndofs,1), Fex.*(ft(:).*wndw)', opts);
+    U0, Ud0, Fex.*(ft(:).*wndw)', opts);
 toc
 
 %% Process Data
@@ -255,13 +268,13 @@ udd_s2 = Lsens2*Udd;
 puls_s1 = zeros(NsensperBM*3, length(T));
 puls_s2 = zeros(NsensperBM*3, length(T));
 
-npr = 3;
-npc = 5;
-figure(3)
-clf()
-
-figure(4)
-clf()
+% npr = 3;
+% npc = 5;
+% figure(3)
+% clf()
+% 
+% figure(4)
+% clf()
 for si=1:NsensperBM
     for di=1:3
         [s1,fv,t] = STFT([zeros(1, Np2-1), udd_s1((si-1)*3+di,:)], hanning(Np2), 1, floor(length(T))/2, fsamp);        
@@ -271,41 +284,182 @@ for si=1:NsensperBM
         puls_s2((si-1)*3+di, :) = interp1(fv, s2, fpuls)/(length(T)/2);
         
         
-        figure(3)
-        subplot(npc, npr, (si-1)*3+di)
-        imagesc(t, fv, abs(s1));
-        colorbar;
-        set(gca, 'YDir', 'normal')
-        title(sprintf('BM1 Sensor %d: DOF %d', si, di))
-        
-        figure(4)
-        subplot(npc, npr, (si-1)*3+di)
-        imagesc(t, fv, abs(s2));
-        colorbar;
-        set(gca, 'YDir', 'normal')
-        title(sprintf('BM2 Sensor %d: DOF %d', si, di))
+%         figure(3)
+%         subplot(npc, npr, (si-1)*3+di)
+% %         imagesc(t, fv, abs(s1));
+%         imagesc(t, fv, 20*log10(abs(s1)));
+% %         xlim([0 0.1])
+%         colorbar;
+%         set(gca, 'YDir', 'normal')
+%         title(sprintf('BM1 Sensor %d: DOF %d', si, di))
+%         
+%         figure(4)
+%         subplot(npc, npr, (si-1)*3+di)
+% %         imagesc(t, fv, abs(s2));
+%         imagesc(t, fv, 20*log10(abs(s2)));
+% %         xlim([0 0.1])
+%         colorbar;
+%         set(gca, 'YDir', 'normal')
+%         title(sprintf('BM2 Sensor %d: DOF %d', si, di))
     end
 end
 
+%% Estimate transmission Coefficients
+ks = linspace(0, 2*2*pi*32/120e-3, 1000); ks(1) = [];
+[ws, wbyks, dwdks] = TIMOWSPDS(ks, pars);  % Solution of dispersion relationship
+caxl = sqrt(pars.E/pars.rho);  % Axial wave speed
+ws = [ws; caxl*ks];
+wbyks = [wbyks; caxl*ones(size(ks))];
+dwdks = [dwdks; caxl*ones(size(ks))];
+
+kpuls_t1 = interp1(ws(3,:), ks, 2*pi*fpuls);
+kpuls_t2 = interp1(ws(4,:), ks, 2*pi*fpuls);
+kpuls_l = interp1(ws(5,:), ks, 2*pi*fpuls);
+
+tmwss = TIMOWSPDS(2*pi*fpuls, pars, 'w');
+tmws = [0; 0]*1j;
+k = 1;
+for i=1:4
+    if tmwss(i)>0
+        if isreal(tmwss(i))
+            tmws(k) = tmwss(i);
+            k = k+1;
+        elseif imag(tmwss(i))>0
+            tmws(k) = tmwss(i);
+            k = k+1;
+        end
+    end
+end
+
+[~, m1] = min(abs(tmws-kpuls_t1));
+kpuls_t1 = tmws(m1);
+m2 = setdiff(1:2, m1);
+kpuls_t2 = tmws(m2);
+
+kpuls_l = 2*pi*fpuls/caxl;
+
+% We now have [kpuls_t1, kpuls_t2, kpuls_l]
+
+TMcoefs1_num = zeros(1, NsensperBM*3)*1j;
+TMcoefs1_thr = zeros(1, NsensperBM*3)*1j;
+[pks, pkin] = findpeaks(abs(puls_s1((fin-1)*3+din, :)));
+[~, mi] = max(abs(pks));
+pkin = pkin(mi);
+for si=1:NsensperBM
+    for di=1:3
+        % BM1
+        [pks, plocs1] = findpeaks(abs(puls_s1((si-1)*3+di, :)));
+        [~, mi] = max(abs(pks));
+        plocs1 = plocs1(mi);
+        
+        del_t = T(plocs1) - T(pkin);
+        del_x = SLocs1(si) - SLocs1(fin);
+        
+        TMcoefs1_num(1, (si-1)*3+di) = exp(-1j*del_t*2*pi*fpuls)*puls_s1((si-1)*3+di, plocs1)/puls_s1((fin-1)*3+din, pkin);
+        TMcoefs1_thr(1, (si-1)*3+di) = exp(1j*kpuls_t1*del_x);
+    end
+end
+
+%% All w.r.t SLocs2(1)
+
+TMcoefs2_num = zeros(1, NsensperBM*3)*1j;
+TMcoefs2_thr = zeros(1, NsensperBM*3)*1j;
+[pks, pkin] = findpeaks(abs(puls_s2((1-1)*3+2, :)));
+% [pks, pkin] = findpeaks(abs(puls_s1((fin-1)*3+din, :)));
+[~, mi] = max(abs(pks));
+pkin = pkin(mi);
+for si=1:NsensperBM
+    for di=1:3
+        % BM2
+        [pks, plocs2] = findpeaks(abs(puls_s2((si-1)*3+di, :)));
+        [~, mi] = max(abs(pks));
+        plocs2 = plocs2(mi);
+        
+        del_t = T(plocs2) - T(pkin);
+        del_x = SLocs2(si) - SLocs2(1);
+%         del_x = SLocs2(si) - SLocs1(fin);
+        
+        TMcoefs2_num(1, (si-1)*3+di) = exp(-1j*del_t*2*pi*fpuls)*puls_s2((si-1)*3+di, plocs2)/puls_s2((1-1)*3+2, pkin);
+%         TMcoefs2_num(1, (si-1)*3+di) = exp(-1j*del_t*2*pi*fpuls)*puls_s2((si-1)*3+di, plocs2)/puls_s1((fin-1)*3+din, pkin);
+        TMcoefs2_thr(1, (si-1)*3+di) = exp(1j*kpuls_t1*del_x);
+    end
+end
+
+return
+%%
+figure(50)
+clf()
+set(gcf, 'Color', 'white')
+
+% plot(SLocs1, abs(TMcoefs1_num(2:3:end)), 'bo', 'MarkerFaceColor', 'b'); hold on
+% plot(SLocs1, abs(TMcoefs1_thr(2:3:end))/2, 'r*')
+
+plot(SLocs2, abs(TMcoefs2_num(2:3:end)), 'bo', 'MarkerFaceColor', 'b'); hold on
+plot(SLocs2, abs(TMcoefs2_thr(2:3:end)), 'r*')
+
+legend('Numerical Estimates', 'Theoretical Estimates', 'Location', 'Best')
+
+xlabel('Sensor Locations')
+ylabel('Transmission Coefficient (mag)')
+
+export_fig('./FIGS/FPULS_TMsamp.eps', '-depsc')
 %%
 figure(5)
 clf()
+set(gcf, 'Color', 'white')
 
+Sd = fix(linspace(0, NsensperBM-1, 4))+1;
+Ed = Sd(2:end)-1;  Ed(end) = Ed(end)+1;
+Sd = Sd(1:end-1);
+NnDd = Ed-Sd+1;
 for di=1:3
     subplot(2,3, di)
-    plot(T, 20*log10(abs(puls_s1(di:3:end,:))))
+    aa = plot(T, 20*log10(abs(puls_s2(di:3:end,:))));
+    legend(aa(Sd(di):Ed(di)), [repmat('Sensor ', NnDd(di),1) num2str((Sd(di):Ed(di))')], ...
+        'Location', 'northeast')
     xlabel('Time (s)')
     ylabel('Acceleration Amplitude (dB)')
+    title(sprintf('DOF %d: Red Region', di))
     
     subplot(2,3, 3+di)
-    plot(T, 20*log10(abs(puls_s1(di:3:end,:))))
-	if di==3
-        legend([repmat('Sensor ', NsensperBM,1) num2str((1:NsensperBM)')])
-    end
+	bb = plot(T, 20*log10(abs(puls_s2(di:3:end,:))));
+    legend(bb(Sd(di):Ed(di)), [repmat('Sensor ', NnDd(di),1) num2str((Sd(di):Ed(di))')], ...
+        'Location', 'northeast')
     xlabel('Time (s)')
     ylabel('Acceleration Amplitude (dB)')
+    title(sprintf('DOF %d: Purple Region', di))
+    
 end
+export_fig('./FIGS/FPULSERESP_samppuls.eps', '-depsc')
 
+%% 
+figure(10)
+clf()
+set(gcf, 'Color', 'white')
+for i=1:length(MODBMs)
+    plot(MODBMs{i}.X, MODBMs{i}.X*0+i, '-', 'LineWidth', 4); hold on
+end
+plot(SLocs1, SLocs1*0+2, 'kx')
+plot(SLocs2, SLocs2*0+4, 'kx')
+axis equal
+xlabel('X Coordinate')
+
+annotation('textarrow', [0.4 0.5], [0.8 0.6], 'String', 'Central Region')
+text(mean(MODBMs{2}.X)*1.5, 0, 'Sensors (x)')
+text(mean(MODBMs{4}.X)/1.5, 6, 'Sensors (x)')
+
+% drawbrace([MODBMs{1}.X(end) -4], [MODBMs{1}.X(1) -4], 20, 'LineWidth', 1)
+
+
+tt = linspace(0, 2*pi);
+rr = 2;
+plot(rr*cos(tt)+mean(MODBMs{3}.X), rr*sin(tt)+3, 'k--')
+
+plot(MODBMs{1}.X(end)*[1 1], ylim, 'k--')
+% plot(MODBMs{2}.X(end)*[1 1], ylim, 'k--')
+% plot(MODBMs{3}.X(end)*[1 1], ylim, 'k--')
+plot(MODBMs{4}.X(end)*[1 1], ylim, 'k--')
+print('./FIGS/FPULS_setupsamp.eps', '-depsc')
 %% Plot
 figure(1);
 clf()
@@ -318,6 +472,34 @@ for di=1:3
     ylabel('Response')
 end
 xlabel('Time (s)')
+
+pause(1)
+figure(3)
+set(gcf, 'Color', 'white')
+clf();
+ti = 65;
+    for i=1:length(MODBMs)
+        for di=1:3
+            subplot(3,1, di)            
+%             plot(SLocs1, SLocs1*0, 'bo', 'MarkerFaceColor', 'w'); hold on
+%             plot(SLocs2, SLocs2*0, 'ro', 'MarkerFaceColor', 'w'); hold on
+            
+%             plot(SLocs1, Lsens1(di:3:end, :)*U(:, ti), 'bo', 'MarkerFaceColor', 'w'); hold on
+%             plot(SLocs2, Lsens2(di:3:end, :)*U(:, ti), 'ro', 'MarkerFaceColor', 'w'); hold on
+
+            plot(MODBMs{i}.X, MODBMs{i}.X*0, '-'); hold on
+            plot(MODBMs{i}.X, MODBMs{i}.L(di:3:end,:)*U(:, ti), '.-')
+            
+            plot(SLocs1(fin), 0, 'k*')
+            title(sprintf('Frame %d/%d (%e s): Dof %d', ti, length(T), T(ti), di))
+            
+            grid on
+            ylim((umax(di)+eps)*1.2*[-1 1])
+        end
+    end
+subplot(3,1, 3)
+xlabel('X Coordinate (m)')
+export_fig('./FIGS/FPULSERESP_samp.eps', '-depsc')
 
 pause(1)
 figure(2)
@@ -342,8 +524,8 @@ for ti=1:length(T)
 %             plot(SLocs1, SLocs1*0, 'bo', 'MarkerFaceColor', 'w'); hold on
 %             plot(SLocs2, SLocs2*0, 'ro', 'MarkerFaceColor', 'w'); hold on
             
-            plot(SLocs1, Lsens1(di:3:end, :)*U(:, ti), 'bo', 'MarkerFaceColor', 'w'); hold on
-            plot(SLocs2, Lsens2(di:3:end, :)*U(:, ti), 'ro', 'MarkerFaceColor', 'w'); hold on
+%             plot(SLocs1, Lsens1(di:3:end, :)*U(:, ti), 'bo', 'MarkerFaceColor', 'w'); hold on
+%             plot(SLocs2, Lsens2(di:3:end, :)*U(:, ti), 'ro', 'MarkerFaceColor', 'w'); hold on
             
             title(sprintf('Frame %d/%d: Dof %d', ti, length(T), di))
             

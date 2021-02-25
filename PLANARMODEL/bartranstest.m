@@ -10,12 +10,12 @@ set(0,'defaultAxesFontSize',16)
 
 %% Parameters
 wdt = 25.4e-3;
-Len = 40;
+Len = 160;
 rho = 7800;
 E = 2e11;
 Ar = wdt^2;
 
-c = sqrt(E/rho)*10;
+c = sqrt(E/rho)*1.0;
 
 xf = Len/2;
 
@@ -31,8 +31,11 @@ C = zeros(Ne+1);
 for e=1:Ne
     M(e:e+1, e:e+1) = M(e:e+1, e:e+1) + rho*Ar*Le/6*[2 1; 1 2];
     K(e:e+1, e:e+1) = K(e:e+1, e:e+1) + Ar*E/Le*[1 -1;-1 1];
+    
+%     M(e:e+1, e:e+1) = M(e:e+1, e:e+1) + Le/6*[2 1; 1 2];
+%     K(e:e+1, e:e+1) = K(e:e+1, e:e+1) + c^2/Le*[1 -1;-1 1];
 end
-C([1 end],[1 end]) = c*eye(2);
+C([1 end],[1 end]) = c*rho*Ar*eye(2);
 
 % Forcing
 F = zeros(Ne+1,1);
@@ -43,8 +46,8 @@ end
 F = F/sum(F);
 
 %% Null transform
-L = null(ones(Ne+1,1)'*M);
-% L = eye(size(M));
+% L = null(ones(Ne+1,1)'*M);
+L = eye(size(M));
 
 %% MDOFGEN
 MDL = MDOFGEN(L'*M*L, L'*K*L, L'*C*L, L);
@@ -52,21 +55,24 @@ MDL = MDOFGEN(L'*M*L, L'*K*L, L'*C*L, L);
 %% Transient Analysis
 fsamp = 2^12;
 T0 = 0;
-T1 = 0.1;
+T1 = 0.5;
 T = (T0:1/fsamp:T1)';
 
 famp = 1;
-fpuls = 100;
+fpuls = 350;
 fpwdt = (2*pi)/(2*pi*fpuls/sqrt(E/rho));
 ft = sin(2*pi*fpuls*T)*famp;
-Np2 = ceil(fsamp/fpuls)*2+1;
+Np2 = ceil(fsamp/fpuls)*4+1;
+% wndw = [zeros(Np2,1); hanning(Np2); zeros(length(T)-Np2*2,1)];
 wndw = [hanning(Np2); zeros(length(T)-Np2,1)];
 
 opts = struct('Display', 'waitbar');
+U0 = zeros(MDL.Ndofs,1);
+Ud0 = zeros(MDL.Ndofs,1);
 
 tic
 [T, U, Ud, Udd] = MDL.HHTAMARCH(T0, T1, 1/fsamp, ...
-    zeros(MDL.Ndofs,1), zeros(MDL.Ndofs,1), ((L'*F).*(ft(:).*wndw(:))'), ...
+    U0, Ud0, ((L'*F).*(ft(:).*wndw(:))'), ...
     opts);
 toc
 
@@ -96,7 +102,7 @@ for ti=1:length(T)
     ylabel('Response')
     ylim(um*[-1 1])
     
-    title(sprintf('Frame %d/%d', ti, length(T)))
+    title(sprintf('Frame %d/%d. F = %.2f N', ti, length(T), ft(ti)*wndw(ti)))
     
     pause(0.001)
 end

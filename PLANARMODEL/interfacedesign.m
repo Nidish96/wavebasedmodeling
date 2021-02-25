@@ -123,7 +123,7 @@ xlabel('X Coordinate (m)')
 ax = gca;
 ax.YAxis(1).Color = 'b';
 ax.YAxis(2).Color = 'k';
-% export_fig(sprintf('./FIGS/BOLTFORCMOD_%dIN.eps', Nein), '-depsc')
+export_fig(sprintf('./FIGS/BOLTFORCMOD_%dIN.eps', Nein), '-depsc')
 
 %% Assembly
 Mintf = blkdiag(M1, M2);

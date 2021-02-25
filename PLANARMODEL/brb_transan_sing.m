@@ -128,20 +128,26 @@ switch DOF
         Fin = Finp(:, 3);
 end
 
-% Haversine impulse 
-type = 'IMP';
-% bw = 1000;
-% famp = 1000;
-% fex = @(t) famp*sin(2*pi*bw*t).^2.*(t<=1.0/(2*bw));
-% fext = fex(T);
-% FEX = @(t) Ln'*Finp*fex(t)+Ln'*Fbolt*Prestress;
-
-% White Gaussian Noise
 type = 'WGN';
-% famp = 10;  % 0.01
-bw = -1;
 
-rand("seed", sd);
+switch type
+    case 'IMP'
+        % Haversine impulse 
+        type = 'IMP';
+        % bw = 1000;
+        % famp = 1000;
+        % fex = @(t) famp*sin(2*pi*bw*t).^2.*(t<=1.0/(2*bw));
+        % fext = fex(T);
+        % FEX = @(t) Ln'*Finp*fex(t)+Ln'*Fbolt*Prestress;
+    case 'WGN'
+        % White Gaussian Noise
+        type = 'WGN';
+        % famp = 10;  % 0.01
+        bw = -1;
+        rand("seed", sd);        
+    otherwise
+        error('Unknown type')
+end
 
 fprintf('Simulating with type %s, F %d, exciting %s, sampled at %d Hz\n', type, famp, DOF, famp);
 
