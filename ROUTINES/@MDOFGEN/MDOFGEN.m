@@ -11,6 +11,7 @@ classdef MDOFGEN
         L  % displacement transformation matrix
         
         NLTs % Nonlinear functions
+        SHAKER % Shaker Attachment
     end
     
     methods
@@ -57,6 +58,24 @@ classdef MDOFGEN
             end
             
             m.NLTs = [m.NLTs; nlfun];
+        end
+        
+        function m = ATTACHSHAKER(m, E, A, B, K, Kd, Nshape)
+        %ATTACHSHAKER stores the information to attach (one or more) shaker
+        %model(s) to the model. Only applicable to explicit (RK) time
+        %stepping solvers.
+        %  Shaker-attached Model assumed to be written in state-space form as,
+        %       E Xd = A X + B U + K*(X-Nshape Y) + Kd*(X - Nshape Yd)
+        %       M Ydd + C Yd + K Y + Fnl + Nshape'*K*(Nshape' Y - X) + Nshape'*Kd*(Nshape' Yd - X)
+        %   
+        %   USAGE:
+        %       E, A    : (nX, nX) A matrix 
+        %       B       : (nX, nU) B matrix 
+        %       K, Kd   : (nX, nX) K matrix 
+        %       NshapeK : (nX, nY) NshapeK matrix
+            
+            m.SHAKER = struct('E', E, 'A', A, 'B', B, 'K', K, 'Kd', Kd, ...
+                'Nshape', Nshape);
         end
     end
 end

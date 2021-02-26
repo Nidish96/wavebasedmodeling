@@ -1,9 +1,10 @@
 %% Choices
-%exc_pt = 1;
-%exc_dir_str = 'y'; % 'x', 'y'
-%fsamp = 12800;
-%Wfrc = 259;  % Forcing Frequency (Hz)
-%Famp = 1.0;  % Forcing Amplitude
+
+% exc_pt = 1;
+% exc_dir_str = 'y'; % 'x', 'y'
+% fsamp = 2^17;
+% Wfrc = 259;  % Forcing Frequency (Hz)
+% Famp = 1.0;  % Forcing Amplitude
 
 switch exc_dir_str
     case 'x'
@@ -230,12 +231,22 @@ fprintf('Harmonic Excitation\n F %f N\n Wfrc %f Hz\n Point P%d\n DOF %s\n Sampli
     Famp, Wfrc, exc_pt, exc_dir, fsamp);
 FEX = @(t) Ln'*(Fbolt*Prestress + Finp*Famp*cos(2*pi*Wfrc*t));
 
+%% Initial Condition
+E = HARMONICSTIFFNESS(MDL.M, MDL.C, J0, 2*pi*Wfrc, 1);
+Ui = E\[Ln'*Finp*Famp; Ln'*Finp*0];
+
+U0  = Ustat + Ui(1:MDL.Ndofs);
+Ud0 = (2*pi*Wfrc)*Ui(MDL.Ndofs+(1:MDL.Ndofs));
+
+% U0 = Ustat;
+% Ud0 = U0*0;
+
 %% HHTA Nonlinear Implicit Time integration
-opts = struct('Display', 'progress');
+opts = struct('Display', 'waitbar');
 [~, ~, ~, MDL] = MDL.NLFORCE(0, Ustat, zeros(size(Ustat)), 0, 1);
 
 tic 
-[T, U, Ud, Udd, MDLh] = MDL.HHTAMARCH(T0, T1, dt, Ustat, zeros(size(Ustat)), ...
+[T, U, Ud, Udd, MDLh] = MDL.HHTAMARCH(T0, T1, dt, U0, Ud0, ...
                     FEX, opts);
 toc
 
