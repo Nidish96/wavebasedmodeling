@@ -1,9 +1,9 @@
 %% Choices
-exc_pt = 1;
-exc_dir_str = 'y'; % 'x', 'y'
-fsamp = 12800;
-Wfrc = 259;  % Forcing Frequency (Hz)
-Famp = 1.0;  % Forcing Amplitude
+%exc_pt = 1;
+%exc_dir_str = 'y'; % 'x', 'y'
+%fsamp = 12800;
+%Wfrc = 259;  % Forcing Frequency (Hz)
+%Famp = 1.0;  % Forcing Amplitude
 
 switch exc_dir_str
     case 'x'
@@ -215,7 +215,7 @@ end
 
 %% Transient Sine Excitation
 % fsamp = 12800;
-fsamp = 100e3;
+% fsamp = 100e3;
 
 T0 = 0; T1 = 1.6;
 dt = 1/fsamp;
@@ -231,7 +231,7 @@ fprintf('Harmonic Excitation\n F %f N\n Wfrc %f Hz\n Point P%d\n DOF %s\n Sampli
 FEX = @(t) Ln'*(Fbolt*Prestress + Finp*Famp*cos(2*pi*Wfrc*t));
 
 %% HHTA Nonlinear Implicit Time integration
-opts = struct('Display', 'waitbar');
+opts = struct('Display', 'progress');
 [~, ~, ~, MDL] = MDL.NLFORCE(0, Ustat, zeros(size(Ustat)), 0, 1);
 
 tic 
@@ -246,7 +246,7 @@ UdPs = (Ninvs*Ln)*Ud;
 UddPs = (Ninvs*Ln)*Udd;
 fext = Famp*cos(2*pi*Wfrc*T);
 
-fname = sprintf('./DATS/SSHARM/RESU_F%d_W%d.mat', Famp*1000, Wfrc);
+fname = sprintf('./DATS/SSHARM/RESU%d_PT%d%s_F%d_W%d.mat', log2(fsamp), exc_pt, exc_dir_str, Famp*1000, Wfrc);
 save(fname, 'T', 'U', 'Ud', 'Udd', 'Finp', 'Famp', 'Wfrc', 'exc_pt', 'exc_dir_str', 'exc_dir', ...
     'Fbolt', 'Prestress', 'UPs', 'UdPs', 'UddPs');
 
