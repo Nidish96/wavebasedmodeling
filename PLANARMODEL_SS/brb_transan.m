@@ -228,10 +228,10 @@ Ud = zeros(MDL.Ndofs, length(T));
 Udd = zeros(MDL.Ndofs, length(T));
 
 fprintf('Harmonic Excitation\n F %f N\n Wfrc %f Hz\n Point P%d\n DOF %s\n Sampling %f Hz\n', ...
-    Famp, Wfrc, exc_pt, exc_dir, fsamp);
+    Famp, Wfrc, exc_pt, exc_dir_str, fsamp);
 FEX = @(t) Ln'*(Fbolt*Prestress + Finp*Famp*cos(2*pi*Wfrc*t));
 
-%% Initial Condition
+%% Initial Condition (from Linear solve)
 E = HARMONICSTIFFNESS(MDL.M, MDL.C, J0, 2*pi*Wfrc, 1);
 Ui = E\[Ln'*Finp*Famp; Ln'*Finp*0];
 
