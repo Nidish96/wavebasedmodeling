@@ -11,7 +11,6 @@ classdef MDOFGEN
         L  % displacement transformation matrix
         
         NLTs % Nonlinear functions
-        SHAKER % Shaker Attachment
     end
     
     methods
@@ -60,23 +59,73 @@ classdef MDOFGEN
             m.NLTs = [m.NLTs; nlfun];
         end
         
-        function m = ATTACHSHAKER(m, E, A, B, K, Kd, Nshape)
+        function [m, Fshape] = ATTACHSHAKER(m, E, A, B, K, Kd, Nshape)
         %ATTACHSHAKER stores the information to attach (one or more) shaker
         %model(s) to the model. Only applicable to explicit (RK) time
         %stepping solvers.
         %  Shaker-attached Model assumed to be written in state-space form as,
-        %       E Xd = A X + B U + K*(X-Nshape Y) + Kd*(X - Nshape Yd)
+        %       E Xd = A X + B U - K*(X-Nshape Y) - Kd*(X - Nshape Yd)
         %       M Ydd + C Yd + K Y + Fnl + Nshape'*K*(Nshape' Y - X) + Nshape'*Kd*(Nshape' Yd - X)
         %   
         %   USAGE:
         %       E, A    : (nX, nX) A matrix 
         %       B       : (nX, nU) B matrix 
         %       K, Kd   : (nX, nX) K matrix 
-        %       NshapeK : (nX, nY) NshapeK matrix
+        %       Nshape  : (nX, nY) Nshape matrix
             
-            m.SHAKER = struct('E', E, 'A', A, 'B', B, 'K', K, 'Kd', Kd, ...
-                'Nshape', Nshape);
+            n = size(A,1);
+            
+            m.M = blkdiag(m.M, zeros(n));
+            m.C = [m.C+Nshape'*Kd*Nshape, -Nshape'*Kd;
+                -Kd*Nshape, E];
+            m.K = [m.K+Nshape'*K*Nshape, -Nshape'*K;
+                -K*Nshape, -A+K+Kd];
+            Fshape = [zeros(m.Ndofs,size(B,2)); B];
+            
+            if ~isempty(m.NLTs)
+                for i=1:length(m.NLTs)
+                    m.NLTs(i).L = [m.NLTs(i).L, zeros(size(m.NLTs(i).L,1), n)];
+                    if m.NLTs(i).type > 5
+                        m.NLTs(i).Lf = [m.NLTs(i).Lf; zeros(n, size(m.NLTs(i).Lf,2))];
+                    end
+                end
+            end
+            
+            m.Ndofs = size(m.M,1);
         end
+        
+        function m = ATTACHSHAKER2(m, Ms, Cs, Ks, K, Kd, Nshape)
+        %ATTACHSHAKER stores the information to attach (one or more) shaker
+        %model(s) to the model. Only applicable to explicit (RK) time
+        %stepping solvers.
+        %  Shaker-attached Model assumed to be written in second order form as
+        %       Ms Xdd + Cs Xd + Ks X + K*(X-Nshape*Y) + Kd*(Xd-Nshape*Yd) = 0
+        %       M Ydd + C Yd + K Y + Fnl + Nshape'*K*(Nshape' Y - X) + Nshape'*Kd*(Nshape' Yd - X) = 0
+        %   
+        %   USAGE:
+        %       Ms,Cs,Ks: (nX, nX) A matrix 
+        %       K, Kd   : (nX, nX) K matrix 
+        %       Nshape  : (nX, nY) Nshape matrix
+        
+            n = size(Ms,1);
+            
+            m.M = blkdiag(m.M, Ms);
+            m.C = [m.C+Nshape'*Kd*Nshape, -Nshape'*Kd;
+                -Kd*Nshape, Cs+Kd];
+            m.K = [m.K+Nshape'*K*Nshape, -Nshape'*K;
+                -K*Nshape, Ks+K];
+            
+            if ~isempty(m.NLTs)
+                for i=1:length(m.NLTs)
+                    m.NLTs(i).L = [m.NLTs(i).L, zeros(size(m.NLTs(i).L,1), n)];
+                    if m.NLTs(i).type > 5
+                        m.NLTs(i).Lf = [m.NLTs(i).Lf; zeros(n, size(m.NLTs(i).Lf,2))];
+                    end
+                end
+            end
+            
+            m.Ndofs = size(m.M,1);
+        end        
     end
 end
 
