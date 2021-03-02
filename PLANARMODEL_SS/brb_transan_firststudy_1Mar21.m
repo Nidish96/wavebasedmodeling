@@ -1,10 +1,12 @@
 %% Choices
 
-% exc_pt = 1;
-% exc_dir_str = 'y'; % 'x', 'y'
-% fsamp = 2^17;
-% Wfrc = 259;  % Forcing Frequency (Hz)
-% Famp = 1.0;  % Forcing Amplitude
+exc_pt = 1;
+exc_dir_str = 'y'; % 'x', 'y'
+fsamp = 2^17;
+Wfrc = 259;  % Forcing Frequency (Hz)
+Famp = 1.0;  % Forcing Amplitude
+Ttot = 1.0;
+SweepDir = 'up';
 
 switch exc_dir_str
     case 'x'
@@ -218,7 +220,7 @@ end
 % fsamp = 12800;
 % fsamp = 100e3;
 
-T0 = 0; T1 = 0.8;
+T0 = 0; T1 = Ttot;
 dt = 1/fsamp;
 T = (T0:dt:T1)';
 
@@ -241,8 +243,33 @@ Ud0 = (2*pi*Wfrc)*Ui(MDL.Ndofs+(1:MDL.Ndofs));
 % U0 = Ustat;
 % Ud0 = U0*0;
 
+%% Initial Condition (from Nonlinear Harmonic Balance)
+switch SweepDir
+    case 'up'
+        load('./DATS/SSHBMy_nocont.mat', 'UCus', 'Fas')
+        
+        fi = find((Fas(1:end-1)-Famp).*(Fas(2:end)-Famp)<=0);
+        wi = find((UCus{fi}(end,1:end-1)/2/pi-Wfrc).*(UCus{fi}(end,2:end)/2/pi-Wfrc)<=0);
+        
+        U0 = UCus{fi}(1:MDL.Ndofs, wi) + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        Ud0 = (2*pi*Wfrc)*UCus{fi}(MDL.Ndofs*2+(1:MDL.Ndofs), wi);
+        
+        clear UCus Fas
+    case 'down'
+        load('./DATS/SSHBMy_nocont.mat', 'UCds', 'Fas')
+        
+        fi = find((Fas(1:end-1)-Famp).*(Fas(2:end)-Famp)<=0);
+        wi = find((UCds{fi}(end,1:end-1)/2/pi-Wfrc).*(UCds{fi}(end,2:end)/2/pi-Wfrc)<=0);
+        
+        U0 = UCds{fi}(1:MDL.Ndofs, wi) + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        Ud0 = (2*pi*Wfrc)*UCds{fi}(MDL.Ndofs*2+(1:MDL.Ndofs), wi);
+        
+        clear UCus Fas
+end
+
+
 %% HHTA Nonlinear Implicit Time integration
-opts = struct('Display', 'none');
+opts = struct('Display', 'waitbar');
 [~, ~, ~, MDL] = MDL.NLFORCE(0, Ustat, zeros(size(Ustat)), 0, 1);
 
 tic 
@@ -257,9 +284,10 @@ UdPs = (Ninvs*Ln)*Ud;
 UddPs = (Ninvs*Ln)*Udd;
 fext = Famp*cos(2*pi*Wfrc*T);
 
-fname = sprintf('./DATS/SSHARM/RESU2_%d_PT%d%s_F%d_W%d.mat', log2(fsamp), exc_pt, exc_dir_str, Famp*1000, Wfrc);
-save(fname, 'T', 'U', 'Ud', 'Udd', 'Finp', 'Famp', 'Wfrc', 'exc_pt', 'exc_dir_str', 'exc_dir', ...
-    'Fbolt', 'Prestress', 'UPs', 'UdPs', 'UddPs');
+fname = sprintf('./DATS/FIRST_1MAR21/RESU%d_PT%d%s_F%d_W%d_Sweep%s.mat', log2(fsamp), exc_pt, exc_dir_str, Famp*1000, Wfrc, SweepDir);
+save(fname, 'T', 'UPs', 'UdPs', 'UddPs', 'Wfrc', 'Famp', 'exc_pt', 'exc_dir_str', 'exc_dir', 'Prestress')
+% save(fname, 'T', 'U', 'Ud', 'Udd', 'Finp', 'Famp', 'Wfrc', 'exc_pt', 'exc_dir_str', 'exc_dir', ...
+%     'Fbolt', 'Prestress', 'UPs', 'UdPs', 'UddPs');
 
 %%
 if false

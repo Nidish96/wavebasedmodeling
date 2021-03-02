@@ -85,9 +85,13 @@ ab = [1./(2*W0(1:length(zetas))), W0(1:length(zetas))/2]\zetas;
 Cbrb = ab(1)*Mbrb + ab(2)*(Kbrb+Kbolt+K0);
 
 %% Input Force Vector 
+exc_dir_str = 'y';
 Finp = zeros((Nemono+Nein+2)*2*3,1);
-% Finp(1) = 1;
-Finp(2) = 1;
+if exc_dir_str=='x'
+    Finp(1) = 1;
+else
+    Finp(2) = 1;
+end
 
 Finp = [L1;L2]'*Finp;
 
@@ -130,18 +134,31 @@ fa = 25.00;  % 0.01, 0.20, 1.00, 5.00, 15.00, 25.00,
 
 Fas = [1.0 9.0 17.0 25.0];
 FRFs = cell(size(Fas));
-%%
+
+%% Continuation
 Wst = 250*2*pi;
 Wen = 270*2*pi;
 dw = 1.0;   dsmax = 5;    dsmin = 0.1;
 
 Nt = 2^8;
 
+contin = 1;
+
 Copt = struct('Nmax', 400, 'itDisplay', false, 'angopt', 1e-2, ...
-    'dsmin', dsmin, 'arclengthparm', 'orthogonal', 'dsmax', dsmax, ...
-    'lsrch', 0, 'DynDscale', 0);
+    'dsmin', dsmin, 'adapt', 1, ...
+    'arclengthparm', 'orthogonal', 'dsmax', dsmax, ...
+    'lsrch', 0, 'DynDscale', 0, 'ITMAX', 100);
 % %%
 fi = 2;
+
+if contin==0 % Regular stepping
+    Copt.adapt = 0;
+    Copt.arclengthparm = 'none';
+    % Copt.arclengthparm = 'orthogonal';
+    dw = 2*pi;
+end
+UCus = cell(size(Fas));
+UCds = cell(size(Fas));
 for fi=1:length(Fas)
     fa = Fas(fi);
     
@@ -163,20 +180,72 @@ for fi=1:length(Fas)
     
     FRFs{fi} = cell(2,1);
 
-    UC = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), U0, Wst, Wen, dw, Copt);
+    %% UPSWEEP
+    [UCus{fi}, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), U0, Wst, Wen, dw, Copt);
+    if flag==-1
+        % Try tangent predictor
+        w = UCus{fi}(end,end)+dw;
+        [R, dRdU, dRdw] = MDL.HBRESFUN(UCus{fi}(:, end), Fl, h, Nt, 1e-6);
+        U0 = UCus{fi}(1:end-1,end) - (dRdU\dRdw)*dw;
+        [UC2, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), U0, w, Wen, dw, Copt);
+        if flag==-1  % Try linear predictor
+            U0 = HARMONICSTIFFNESS(MDL.M, MDL.C, J0, w, h)\Fl;
+            U0(1:MDL.Ndofs) = Ustat;
+            [UC2, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), U0, w, Wen, dw, Copt);
+            if flag==-1 && fi~=1
+                previdx = find((UCus{fi-1}(end, 1:end-1)-w).*(UCus{fi-1}(end, 2:end)-w)<=0);
+                U0 = UCus{fi-1}(1:end-1, previdx(1));
+                U0((MDL.Ndofs+1):end) = U0((MDL.Ndofs+1):end)*(Fas(fi)/Fas(fi-1));
+                [UC2, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), U0, w, Wen, dw, Copt);
+            end
+        end
+        
+        UCus{fi} = [UCus{fi} UC2];
+    end
     % UC = CONTINUE(@(Uw) HBMRESFUN_TMP(Uw, MDL.M, MDL.C, MDL.K, MDL.NLTs.L, MDL.NLTs.Lf, Fl, kt, kn, mu, gap, h, Nt, 1e-6), U0, Wst, Wen, dw, Copt);
 
-    uout_h = (kron(eye(Nhc), Finp'*Ln)*UC(1:end-1,:));
-    FRFs{fi}{1} = [(uout_h(2,:)-uout_h(3,:)*1j)/fa; UC(end,:)];
+    uout_h = (kron(eye(Nhc), Finp'*Ln)*UCus{fi}(1:end-1,:));
+    FRFs{fi}{1} = [(uout_h(2,:)-uout_h(3,:)*1j)/fa; UCus{fi}(end,:)];
+
+    %% DOWNSWEEP
+    [UCds{fi}, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), U0, Wen, Wst, dw, Copt);
+    if flag==-1
+        % Try tangent predictor
+        w = UCds{fi}(end,end)-dw;
+        [R, dRdU, dRdw] = MDL.HBRESFUN(UCds{fi}(:, end), Fl, h, Nt, 1e-6);
+        U0 = UCds{fi}(1:end-1,end) - (dRdU\dRdw)*(-dw);
+        [UC2, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), ...
+            U0, w, Wst, dw, Copt);
+        if flag==-1  % Try linear predictor
+            U0 = HARMONICSTIFFNESS(MDL.M, MDL.C, J0, w, h)\Fl;  % Linear Initial Guess
+            U0(1:MDL.Ndofs) = Ustat;
+            
+            [UC2, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), ...
+                U0, w, Wst, dw, Copt);
+            if flag==-1 && ~isempty(find((UCus{fi}(end,1:end-1)-w).*(UCus{fi}(end,2:end)-w)<0, 1))  % Try point from upsweep
+                U0 = UCus{fi}(1:end-1, (UCus{fi}(end,1:end-1)-w).*(UCus{fi}(end,2:end)-w)<0);
+                
+                [UC2, ~, ~, flag] = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), ...
+                    U0, w, Wst, dw, Copt);
+            end
+        end
+        UCds{fi} = [UCds{fi} UC2];
+    end
+    % UC = CONTINUE(@(Uw) HBMRESFUN_TMP(Uw, MDL.M, MDL.C, MDL.K, MDL.NLTs.L, MDL.NLTs.Lf, Fl, kt, kn, mu, gap, h, Nt, 1e-6), U0, Wst, Wen, dw, Copt);
+
+    uout_h = (kron(eye(Nhc), Finp'*Ln)*UCds{fi}(1:end-1,:));
+    FRFs{fi}{2} = [(uout_h(2,:)-uout_h(3,:)*1j)/fa; UCds{fi}(end,:)];
     
-    UC = CONTINUE(@(Uw) MDL.HBRESFUN(Uw, Fl, h, Nt, 1e-6), U0, Wen, Wst, dw, Copt);
-    % UC = CONTINUE(@(Uw) HBMRESFUN_TMP(Uw, MDL.M, MDL.C, MDL.K, MDL.NLTs.L, MDL.NLTs.Lf, Fl, kt, kn, mu, gap, h, Nt, 1e-6), U0, Wst, Wen, dw, Copt);
-
-    uout_h = (kron(eye(Nhc), Finp'*Ln)*UC(1:end-1,:));
-    FRFs{fi}{2} = [(uout_h(2,:)-uout_h(3,:)*1j)/fa; UC(end,:)];    
+    figure(5); plot(FRFs{fi}{1}(2,:)/2/pi, abs(FRFs{fi}{1}(1,:)), '.-', FRFs{fi}{2}(2,:)/2/pi, abs(FRFs{fi}{2}(1,:)), 'o')
 end
 %%
-figure(9)
+if contin==0
+    save(sprintf('DATS/SSHBM%s_nocont.mat',exc_dir_str), 'FRFs', 'Fas', 'UCus', 'UCds');
+else
+    save(sprintf('DATS/SSHBM%s_withcont.mat',exc_dir_str), 'FRFs', 'Fas', 'UCus', 'UCds');
+end
+%%
+figure(10)
 clf(); 
 set(gcf, 'Color', 'white')
 
@@ -189,6 +258,7 @@ for fi=1:length(Fas)
     grid on
     xlabel('Frequency (Hz)')
     ylabel('|FRF| (dB)')
+    xlim([Wst Wen]/2/pi)
 
     subplot(2,1, 2)
     % plot(UC(end,:)/2/pi, rad2deg(angle(frf)), '.-'); hold on 
@@ -197,6 +267,7 @@ for fi=1:length(Fas)
     grid on
     xlabel('Frequency (Hz)')
     ylabel('FRF Phase (degs)')
+    xlim([Wst Wen]/2/pi)
 end
 
-export_fig('./FIGS/FRF_EXP.eps', '-depsc')
+% export_fig('./FIGS/FRF_EXP.eps', '-depsc')
