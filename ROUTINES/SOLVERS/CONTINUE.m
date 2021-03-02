@@ -108,6 +108,7 @@ function [U, dUdlam, Ss] = CONTINUE(func, u0, lam0, lam1, ds, varargin)
 %     [U(:, n+1), ~, eflag, its, J0, ~] = ELIMSOLVE(func, u0, U(:, n), al*dUn, ds, Copt.arclengthparm, Copt.opts);
 
     [U(:, n+1), ~, eflag, its, J0, ~] = ELIMSEQSOLVE(func, u0, U(:, n), al*dUn, ds, Copt.arclengthparm, Copt.opts);
+    
     if eflag<=0
         fprintf('Diverged %d - ', tries);
         switch tries
