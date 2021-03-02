@@ -218,7 +218,7 @@ end
 % fsamp = 12800;
 % fsamp = 100e3;
 
-T0 = 0; T1 = 1.6;
+T0 = 0; T1 = 0.8;
 dt = 1/fsamp;
 T = (T0:dt:T1)';
 
@@ -257,7 +257,7 @@ UdPs = (Ninvs*Ln)*Ud;
 UddPs = (Ninvs*Ln)*Udd;
 fext = Famp*cos(2*pi*Wfrc*T);
 
-fname = sprintf('./DATS/SSHARM/RESU%d_PT%d%s_F%d_W%d.mat', log2(fsamp), exc_pt, exc_dir_str, Famp*1000, Wfrc);
+fname = sprintf('./DATS/SSHARM/RESU2_%d_PT%d%s_F%d_W%d.mat', log2(fsamp), exc_pt, exc_dir_str, Famp*1000, Wfrc);
 save(fname, 'T', 'U', 'Ud', 'Udd', 'Finp', 'Famp', 'Wfrc', 'exc_pt', 'exc_dir_str', 'exc_dir', ...
     'Fbolt', 'Prestress', 'UPs', 'UdPs', 'UddPs');
 

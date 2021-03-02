@@ -7,7 +7,7 @@ for EPT in `seq 1 8`; do
         for FMP in 1 9 17 25; do
             for WFRC in `seq 250 270`; do
                 echo $SMP $EPT $DOF $FMP $WFRC
-                sbatch --export=ALL,SMP=$SMP,EPT=$EPT,DOF=$DOF,FMP=$FMP,WFRC=$WFRC --job-name="$EPT$DOF-$FMP-$WFRC" run_setup.slurm
+                sbatch --time=00:00:25 --export=ALL,SMP=$SMP,EPT=$EPT,DOF=$DOF,FMP=$FMP,WFRC=$WFRC --job-name="$EPT$DOF-$FMP-$WFRC" run_setup.slurm
             done
         done
     done
