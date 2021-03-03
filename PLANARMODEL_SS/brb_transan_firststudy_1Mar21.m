@@ -1,12 +1,12 @@
 %% Choices
 
-exc_pt = 1;
-exc_dir_str = 'y'; % 'x', 'y'
-fsamp = 2^17;
-Wfrc = 259;  % Forcing Frequency (Hz)
-Famp = 1.0;  % Forcing Amplitude
-Ttot = 1.0;
-SweepDir = 'up';
+% exc_pt = 1;
+% exc_dir_str = 'y'; % 'x', 'y'
+% fsamp = 2^17;
+% Wfrc = 259;  % Forcing Frequency (Hz)
+% Famp = 1.0;  % Forcing Amplitude
+% Ttot = 1.0;
+% SweepDir = 'up';
 
 switch exc_dir_str
     case 'x'
@@ -82,7 +82,7 @@ gap  = 0;
 mu   = 0.25;
 
 Pint = Prestress/Aint;
-sint = 1e-6;
+sint = 1e-5;
 chi  = 2;
 ktkn = chi*(1-nu)/(2-nu);
 kt   = 4*(1-nu)*Pint/(sqrt(pi)*(2-nu)*sint);
@@ -248,20 +248,32 @@ switch SweepDir
     case 'up'
         load('./DATS/SSHBMy_nocont.mat', 'UCus', 'Fas')
         
-        fi = find((Fas(1:end-1)-Famp).*(Fas(2:end)-Famp)<=0);
-        wi = find((UCus{fi}(end,1:end-1)/2/pi-Wfrc).*(UCus{fi}(end,2:end)/2/pi-Wfrc)<=0);
-        
-        U0 = UCus{fi}(1:MDL.Ndofs, wi) + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        % fi = find((Fas(1:end-1)-Famp).*(Fas(2:end)-Famp)<=0);
+        % wi = find((UCus{fi}(end,1:end-1)/2/pi-Wfrc).*(UCus{fi}(end,2:end)/2/pi-Wfrc)<=0);
+        fi = find(abs(Fas-Famp)<1e-6);
+        wi = find(abs(UCus{fi}(end,:)/2/pi-Wfrc)<1e-6);
+        if isempty(fi) || isempty(wi)
+            error('EMPTY Fi or Wi!')
+        end        
+
+        % U0 = UCus{fi}(1:MDL.Ndofs, wi) + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        U0 = Ustat + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM
         Ud0 = (2*pi*Wfrc)*UCus{fi}(MDL.Ndofs*2+(1:MDL.Ndofs), wi);
         
         clear UCus Fas
     case 'down'
         load('./DATS/SSHBMy_nocont.mat', 'UCds', 'Fas')
         
-        fi = find((Fas(1:end-1)-Famp).*(Fas(2:end)-Famp)<=0);
-        wi = find((UCds{fi}(end,1:end-1)/2/pi-Wfrc).*(UCds{fi}(end,2:end)/2/pi-Wfrc)<=0);
+        % fi = find((Fas(1:end-1)-Famp).*(Fas(2:end)-Famp)<=0);
+        % wi = find((UCds{fi}(end,1:end-1)/2/pi-Wfrc).*(UCds{fi}(end,2:end)/2/pi-Wfrc)<=0);
+        fi = find(abs(Fas-Famp)<1e-6);
+        wi = find(abs(UCds{fi}(end,:)/2/pi-Wfrc)<1e-6);
+        if isempty(fi) || isempty(wi)
+            error('EMPTY Fi or Wi!')
+        end
         
-        U0 = UCds{fi}(1:MDL.Ndofs, wi) + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        % U0 = UCds{fi}(1:MDL.Ndofs, wi) + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        U0 = Ustat + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM
         Ud0 = (2*pi*Wfrc)*UCds{fi}(MDL.Ndofs*2+(1:MDL.Ndofs), wi);
         
         clear UCus Fas
@@ -279,13 +291,14 @@ toc
 
 fprintf('===================Done================================\n');
 
+UPstat = (Ninvs*Ln)*Ustat;
 UPs = (Ninvs*Ln)*U;
 UdPs = (Ninvs*Ln)*Ud;
 UddPs = (Ninvs*Ln)*Udd;
 fext = Famp*cos(2*pi*Wfrc*T);
 
 fname = sprintf('./DATS/FIRST_1MAR21/RESU%d_PT%d%s_F%d_W%d_Sweep%s.mat', log2(fsamp), exc_pt, exc_dir_str, Famp*1000, Wfrc, SweepDir);
-save(fname, 'T', 'UPs', 'UdPs', 'UddPs', 'Wfrc', 'Famp', 'exc_pt', 'exc_dir_str', 'exc_dir', 'Prestress')
+save(fname, 'T', 'UPstat', 'UPs', 'UdPs', 'UddPs', 'Wfrc', 'Famp', 'exc_pt', 'exc_dir_str', 'exc_dir', 'Prestress', 'SweepDir', 'fext')
 % save(fname, 'T', 'U', 'Ud', 'Udd', 'Finp', 'Famp', 'Wfrc', 'exc_pt', 'exc_dir_str', 'exc_dir', ...
 %     'Fbolt', 'Prestress', 'UPs', 'UdPs', 'UddPs');
 

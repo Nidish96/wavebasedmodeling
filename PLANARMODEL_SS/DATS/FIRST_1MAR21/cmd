@@ -1,0 +1,4 @@
+for file in RESU18*.mat; do
+    echo "Uploading ${file}"
+    curl -u nb25@rice.edu:Attilathehun@!23 -T ${file} https://dav.box.com/dav/WaveBasedModelingProject/TRANSIENTDATA_FirstRun_P1Y/SSHARM/${file} &
+done
