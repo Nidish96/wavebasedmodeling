@@ -1,12 +1,12 @@
 %% Choices
 
-% exc_pt = 1;
-% exc_dir_str = 'y'; % 'x', 'y'
-% fsamp = 2^17;
-% Wfrc = 259;  % Forcing Frequency (Hz)
-% Famp = 1.0;  % Forcing Amplitude
-% Ttot = 1.0;
-% SweepDir = 'up';
+exc_pt = 1;
+exc_dir_str = 'y'; % 'x', 'y'
+fsamp = 2^18;
+Wfrc = 259;  % Forcing Frequency (Hz)
+Famp = 1.0;  % Forcing Amplitude
+Ttot = 1.0;
+SweepDir = 'up';
 
 switch exc_dir_str
     case 'x'
@@ -256,8 +256,8 @@ switch SweepDir
             error('EMPTY Fi or Wi!')
         end        
 
-        % U0 = UCus{fi}(1:MDL.Ndofs, wi) + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
-        U0 = Ustat + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM
+        U0 = UCus{fi}(1:MDL.Ndofs, wi) + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+%         U0 = Ustat + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM
         Ud0 = (2*pi*Wfrc)*UCus{fi}(MDL.Ndofs*2+(1:MDL.Ndofs), wi);
         
         clear UCus Fas
@@ -298,7 +298,7 @@ UddPs = (Ninvs*Ln)*Udd;
 fext = Famp*cos(2*pi*Wfrc*T);
 
 fname = sprintf('./DATS/FIRST_1MAR21/RESU%d_PT%d%s_F%d_W%d_Sweep%s.mat', log2(fsamp), exc_pt, exc_dir_str, Famp*1000, Wfrc, SweepDir);
-save(fname, 'T', 'UPstat', 'UPs', 'UdPs', 'UddPs', 'Wfrc', 'Famp', 'exc_pt', 'exc_dir_str', 'exc_dir', 'Prestress', 'SweepDir', 'fext')
+% save(fname, 'T', 'UPstat', 'UPs', 'UdPs', 'UddPs', 'Wfrc', 'Famp', 'exc_pt', 'exc_dir_str', 'exc_dir', 'Prestress', 'SweepDir', 'fext')
 % save(fname, 'T', 'U', 'Ud', 'Udd', 'Finp', 'Famp', 'Wfrc', 'exc_pt', 'exc_dir_str', 'exc_dir', ...
 %     'Fbolt', 'Prestress', 'UPs', 'UdPs', 'UddPs');
 
@@ -308,7 +308,7 @@ if false
    figure(4)
    hold on
 %    clf()
-   plot(T, UddPs((exc_pt-1)*2+exc_dir, :), '.-')
+   plot(T, UPs((exc_pt-1)*2+exc_dir, :), '.-')
    xlabel('Time (s)')
    ylabel('Displacement at Forcing DOF')
 end

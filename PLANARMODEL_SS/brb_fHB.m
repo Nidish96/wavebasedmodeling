@@ -18,6 +18,18 @@ Prestress = 12e3;
 Fbolto = Fbolt;
 Fbolt = Fboltd;
 
+exc_pt = 1;
+exc_dir_str = 'y';
+
+switch exc_dir_str
+    case 'x'
+        exc_dir = 1;
+    case 'y'
+        exc_dir = 2;
+    otherwise
+        error('Unknown direction')
+end
+
 %% Getting rid of Rigid Body modes 
 Lf = null(Ri1([1:3:end 2:3:end], :)*L1 - Ri2([1:3:end 2:3:end], :)*L2);
 [Vf, Wf] = eig(Lf'*(Kbrb+Kbolt)*Lf, Lf'*(Mbrb+Mbolt)*Lf);
@@ -69,7 +81,7 @@ sint = 1e-5;
 chi  = 2;
 ktkn = chi*(1-nu)/(2-nu);
 kt   = 4*(1-nu)*Pint/(sqrt(pi)*(2-nu)*sint);
-kn   = kt/ktkn
+kn   = kt/ktkn;
 
 K0 = Trel*diag(reshape(kron([kt kn], ones(Nqp*Nein,1))', [], 1))*Qrel;
 
@@ -84,16 +96,54 @@ ab = [1./(2*W0(1:length(zetas))), W0(1:length(zetas))/2]\zetas;
 
 Cbrb = ab(1)*Mbrb + ab(2)*(Kbrb+Kbolt+K0);
 
-%% Input Force Vector 
-exc_dir_str = 'y';
-Finp = zeros((Nemono+Nein+2)*2*3,1);
-if exc_dir_str=='x'
-    Finp(1) = 1;
-else
-    Finp(2) = 1;
+% %% Input Force Vector 
+% exc_dir_str = 'y';
+% Finp = zeros((Nemono+Nein+2)*2*3,1);
+% if exc_dir_str=='x'
+%     Finp(1) = 1;
+% else
+%     Finp(2) = 1;
+% end
+% 
+% Finp = [L1;L2]'*Finp;
+
+%% Input/Sensor Locations
+X1ins = linspace(BM1.X(1), BM1.X(end), 5); X1ins(end) = [];
+N1invs = zeros(length(X1ins)*2, size(Ln,1)); % [ax1; tv1; ax2; tv2; ...]
+for ix=1:length(X1ins)
+    ein = find((BM1.X(1:end-1)-X1ins(ix)).*(BM1.X(2:end)-X1ins(ix))<=0); 
+    ein = ein(1);
+    
+    V = BM1.X(ein:ein+1);
+    xi = -1 + (X1ins(ix)-V(1))*2/(V(2)-V(1));
+    
+    N1invs((ix-1)*2+1, :) = ([1-xi 1+xi]/2)*L1((ein-1)*3+[1 4], :);
+    N1invs((ix-1)*2+2, :) = HERMSF(xi, range(V))*L1((ein-1)*3+[2 3 5 6], :);
 end
 
-Finp = [L1;L2]'*Finp;
+X2ins = linspace(BM2.X(1), BM2.X(end), 5); X2ins(1) = [];
+N2invs = zeros(length(X2ins)*2, size(Ln, 1));
+for ix=1:length(X2ins)
+    ein = find((BM2.X(1:end-1)-X2ins(ix)).*(BM2.X(2:end)-X2ins(ix))<=0); 
+    ein = ein(1);
+    
+    V = BM2.X(ein:ein+1);
+    xi = -1 + (X2ins(ix)-V(1))*2/(V(2)-V(1));
+    
+    N2invs((ix-1)*2+1, :) = ([1-xi 1+xi]/2)*L2((Nein+1)+(ein-1)*3+[1 4], :);
+    N2invs((ix-1)*2+2, :) = HERMSF(xi, range(V))*L2((Nein+1)+(ein-1)*3+[2 3 5 6], :);
+end
+
+
+Xins = [X1ins X2ins];
+Ninvs = [N1invs; N2invs];
+sttls = cell(length(Xins), 1);
+for ix=1:length(Xins)
+    sttls{ix} = sprintf('P%d', ix);
+end
+
+%% Input Force Vector
+Finp = Ninvs((exc_pt-1)*2+exc_dir, :)';
 
 %% GMDOF
 MDL = MDOFGEN(Ln'*(Mbrb+Mbolt)*Ln, Ln'*(Kbrb+Kbolt)*Ln, Ln'*Cbrb*Ln, Ln);
@@ -142,7 +192,7 @@ dw = 1.0;   dsmax = 5;    dsmin = 0.1;
 
 Nt = 2^8;
 
-contin = 1;
+contin = 0;
 
 Copt = struct('Nmax', 400, 'itDisplay', false, 'angopt', 1e-2, ...
     'dsmin', dsmin, 'adapt', 1, ...
@@ -240,9 +290,9 @@ for fi=1:length(Fas)
 end
 %%
 if contin==0
-    save(sprintf('DATS/SSHBM%s_nocont.mat',exc_dir_str), 'FRFs', 'Fas', 'UCus', 'UCds');
+    save(sprintf('DATS/SSHBM_P%d%s_nocont.mat',exc_pt,exc_dir_str), 'FRFs', 'Fas', 'UCus', 'UCds');
 else
-    save(sprintf('DATS/SSHBM%s_withcont.mat',exc_dir_str), 'FRFs', 'Fas', 'UCus', 'UCds');
+    save(sprintf('DATS/SSHBM_P%d%s_withcont.mat',exc_pt,exc_dir_str), 'FRFs', 'Fas', 'UCus', 'UCds');
 end
 %%
 figure(10)
