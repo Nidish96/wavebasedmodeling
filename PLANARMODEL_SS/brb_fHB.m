@@ -164,12 +164,14 @@ U = Ln*Ustat;
 
 sc = 1e3; ccm1 = 'b';ccm2 = 'r';alph = 0.6;
 
-figure(1)
-clf()
-PLOTSOLN(U,BM1, BM2, IN1, IN2, L1, L2, Nemono, Nein, sc, ccm1, ccm2, alph);
-colorbar('southoutside')
-xlim([-0.01 0.73])
-ylim([-1 1]*0.125)
+if false
+    figure(1)
+    clf()
+    PLOTSOLN(U,BM1, BM2, IN1, IN2, L1, L2, Nemono, Nein, sc, ccm1, ccm2, alph);
+    colorbar('southoutside')
+    xlim([-0.01 0.73])
+    ylim([-1 1]*0.125)
+end
 
 %% Prestressed Linear Modes
 [Vp, Wp] = eig(J0, MDL.M);
@@ -286,7 +288,7 @@ for fi=1:length(Fas)
     uout_h = (kron(eye(Nhc), Finp'*Ln)*UCds{fi}(1:end-1,:));
     FRFs{fi}{2} = [(uout_h(2,:)-uout_h(3,:)*1j)/fa; UCds{fi}(end,:)];
     
-    figure(5); plot(FRFs{fi}{1}(2,:)/2/pi, abs(FRFs{fi}{1}(1,:)), '.-', FRFs{fi}{2}(2,:)/2/pi, abs(FRFs{fi}{2}(1,:)), 'o')
+%    figure(5); plot(FRFs{fi}{1}(2,:)/2/pi, abs(FRFs{fi}{1}(1,:)), '.-', FRFs{fi}{2}(2,:)/2/pi, abs(FRFs{fi}{2}(1,:)), 'o')
 end
 %%
 if contin==0
@@ -295,29 +297,31 @@ else
     save(sprintf('DATS/SSHBM_P%d%s_withcont.mat',exc_pt,exc_dir_str), 'FRFs', 'Fas', 'UCus', 'UCds');
 end
 %%
-figure(10)
-clf(); 
-set(gcf, 'Color', 'white')
+if false
+    figure(10)
+    clf(); 
+    set(gcf, 'Color', 'white')
+    
+    COLS = DISTINGUISHABLE_COLORS(length(Fas));
+    for fi=1:length(Fas)
+        subplot(2,1, 1)
+        % plot(UC(end,:)/2/pi, 20*log10(abs(frf)), '.-'); hold on 
+        plot(FRFs{fi}{1}(2,:)/2/pi, 20*log10(abs(FRFs{fi}{1}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
+        plot(FRFs{fi}{2}(2,:)/2/pi, 20*log10(abs(FRFs{fi}{2}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
+        grid on
+        xlabel('Frequency (Hz)')
+        ylabel('|FRF| (dB)')
+        xlim([Wst Wen]/2/pi)
+    
+        subplot(2,1, 2)
+        % plot(UC(end,:)/2/pi, rad2deg(angle(frf)), '.-'); hold on 
+        plot(FRFs{fi}{1}(2,:)/2/pi, rad2deg(angle(FRFs{fi}{1}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
+        plot(FRFs{fi}{2}(2,:)/2/pi, rad2deg(angle(FRFs{fi}{2}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
+        grid on
+        xlabel('Frequency (Hz)')
+        ylabel('FRF Phase (degs)')
+        xlim([Wst Wen]/2/pi)
+    end
 
-COLS = DISTINGUISHABLE_COLORS(length(Fas));
-for fi=1:length(Fas)
-    subplot(2,1, 1)
-    % plot(UC(end,:)/2/pi, 20*log10(abs(frf)), '.-'); hold on 
-    plot(FRFs{fi}{1}(2,:)/2/pi, 20*log10(abs(FRFs{fi}{1}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
-    plot(FRFs{fi}{2}(2,:)/2/pi, 20*log10(abs(FRFs{fi}{2}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
-    grid on
-    xlabel('Frequency (Hz)')
-    ylabel('|FRF| (dB)')
-    xlim([Wst Wen]/2/pi)
-
-    subplot(2,1, 2)
-    % plot(UC(end,:)/2/pi, rad2deg(angle(frf)), '.-'); hold on 
-    plot(FRFs{fi}{1}(2,:)/2/pi, rad2deg(angle(FRFs{fi}{1}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
-    plot(FRFs{fi}{2}(2,:)/2/pi, rad2deg(angle(FRFs{fi}{2}(1,:))), '.-', 'Color', COLS(fi,:)); hold on
-    grid on
-    xlabel('Frequency (Hz)')
-    ylabel('FRF Phase (degs)')
-    xlim([Wst Wen]/2/pi)
+    % export_fig('./FIGS/FRF_EXP.eps', '-depsc')
 end
-
-% export_fig('./FIGS/FRF_EXP.eps', '-depsc')

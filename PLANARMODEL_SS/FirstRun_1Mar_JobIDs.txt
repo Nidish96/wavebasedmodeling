@@ -1,336 +1,336 @@
-18 1 'y' 1 250
-Submitted batch job 2600405
-18 1 'y' 1 251
-Submitted batch job 2600406
-18 1 'y' 1 252
-Submitted batch job 2600407
-18 1 'y' 1 253
-Submitted batch job 2600408
-18 1 'y' 1 254
-Submitted batch job 2600409
-18 1 'y' 1 255
-Submitted batch job 2600410
-18 1 'y' 1 256
-Submitted batch job 2600411
-18 1 'y' 1 257
-Submitted batch job 2600412
-18 1 'y' 1 258
-Submitted batch job 2600413
-18 1 'y' 1 259
-Submitted batch job 2600414
-18 1 'y' 1 260
-Submitted batch job 2600415
-18 1 'y' 1 261
-Submitted batch job 2600416
-18 1 'y' 1 262
-Submitted batch job 2600417
-18 1 'y' 1 263
-Submitted batch job 2600418
-18 1 'y' 1 264
-Submitted batch job 2600419
-18 1 'y' 1 265
-Submitted batch job 2600420
-18 1 'y' 1 266
-Submitted batch job 2600421
-18 1 'y' 1 267
-Submitted batch job 2600422
-18 1 'y' 1 268
-Submitted batch job 2600423
-18 1 'y' 1 269
-Submitted batch job 2600424
-18 1 'y' 1 270
-Submitted batch job 2600425
-18 1 'y' 9 250
-Submitted batch job 2600426
-18 1 'y' 9 251
-Submitted batch job 2600427
-18 1 'y' 9 252
-Submitted batch job 2600428
-18 1 'y' 9 253
-Submitted batch job 2600429
-18 1 'y' 9 254
-Submitted batch job 2600430
-18 1 'y' 9 255
-Submitted batch job 2600431
-18 1 'y' 9 256
-Submitted batch job 2600432
-18 1 'y' 9 257
-Submitted batch job 2600433
-18 1 'y' 9 258
-Submitted batch job 2600434
-18 1 'y' 9 259
-Submitted batch job 2600435
-18 1 'y' 9 260
-Submitted batch job 2600436
-18 1 'y' 9 261
-Submitted batch job 2600437
-18 1 'y' 9 262
-Submitted batch job 2600438
-18 1 'y' 9 263
-Submitted batch job 2600439
-18 1 'y' 9 264
-Submitted batch job 2600440
-18 1 'y' 9 265
-Submitted batch job 2600441
-18 1 'y' 9 266
-Submitted batch job 2600442
-18 1 'y' 9 267
-Submitted batch job 2600443
-18 1 'y' 9 268
-Submitted batch job 2600444
-18 1 'y' 9 269
-Submitted batch job 2600445
-18 1 'y' 9 270
-Submitted batch job 2600446
-18 1 'y' 17 250
-Submitted batch job 2600447
-18 1 'y' 17 251
-Submitted batch job 2600448
-18 1 'y' 17 252
-Submitted batch job 2600449
-18 1 'y' 17 253
-Submitted batch job 2600450
-18 1 'y' 17 254
-Submitted batch job 2600451
-18 1 'y' 17 255
-Submitted batch job 2600452
-18 1 'y' 17 256
-Submitted batch job 2600453
-18 1 'y' 17 257
-Submitted batch job 2600454
-18 1 'y' 17 258
-Submitted batch job 2600455
-18 1 'y' 17 259
-Submitted batch job 2600456
-18 1 'y' 17 260
-Submitted batch job 2600457
-18 1 'y' 17 261
-Submitted batch job 2600458
-18 1 'y' 17 262
-Submitted batch job 2600459
-18 1 'y' 17 263
-Submitted batch job 2600460
-18 1 'y' 17 264
-Submitted batch job 2600461
-18 1 'y' 17 265
-Submitted batch job 2600462
-18 1 'y' 17 266
-Submitted batch job 2600463
-18 1 'y' 17 267
-Submitted batch job 2600464
-18 1 'y' 17 268
-Submitted batch job 2600465
-18 1 'y' 17 269
-Submitted batch job 2600466
-18 1 'y' 17 270
-Submitted batch job 2600467
-18 1 'y' 25 250
-Submitted batch job 2600468
-18 1 'y' 25 251
-Submitted batch job 2600469
-18 1 'y' 25 252
-Submitted batch job 2600470
-18 1 'y' 25 253
-Submitted batch job 2600471
-18 1 'y' 25 254
-Submitted batch job 2600472
-18 1 'y' 25 255
-Submitted batch job 2600473
-18 1 'y' 25 256
-Submitted batch job 2600474
-18 1 'y' 25 257
-Submitted batch job 2600475
-18 1 'y' 25 258
-Submitted batch job 2600476
-18 1 'y' 25 259
-Submitted batch job 2600477
-18 1 'y' 25 260
-Submitted batch job 2600478
-18 1 'y' 25 261
-Submitted batch job 2600479
-18 1 'y' 25 262
-Submitted batch job 2600480
-18 1 'y' 25 263
-Submitted batch job 2600481
-18 1 'y' 25 264
-Submitted batch job 2600482
-18 1 'y' 25 265
-Submitted batch job 2600483
-18 1 'y' 25 266
-Submitted batch job 2600484
-18 1 'y' 25 267
-Submitted batch job 2600485
-18 1 'y' 25 268
-Submitted batch job 2600486
-18 1 'y' 25 269
-Submitted batch job 2600487
-18 1 'y' 25 270
-Submitted batch job 2600488
-18 1 'y' 1 250
-Submitted batch job 2600489
-18 1 'y' 1 251
-Submitted batch job 2600490
-18 1 'y' 1 252
-Submitted batch job 2600491
-18 1 'y' 1 253
-Submitted batch job 2600492
-18 1 'y' 1 254
-Submitted batch job 2600493
-18 1 'y' 1 255
-Submitted batch job 2600494
-18 1 'y' 1 256
-Submitted batch job 2600495
-18 1 'y' 1 257
-Submitted batch job 2600496
-18 1 'y' 1 258
-Submitted batch job 2600497
-18 1 'y' 1 259
-Submitted batch job 2600498
-18 1 'y' 1 260
-Submitted batch job 2600499
-18 1 'y' 1 261
-Submitted batch job 2600500
-18 1 'y' 1 262
-Submitted batch job 2600501
-18 1 'y' 1 263
-Submitted batch job 2600502
-18 1 'y' 1 264
-Submitted batch job 2600503
-18 1 'y' 1 265
-Submitted batch job 2600504
-18 1 'y' 1 266
-Submitted batch job 2600505
-18 1 'y' 1 267
-Submitted batch job 2600506
-18 1 'y' 1 268
-Submitted batch job 2600507
-18 1 'y' 1 269
-Submitted batch job 2600508
-18 1 'y' 1 270
-Submitted batch job 2600509
-18 1 'y' 9 250
-Submitted batch job 2600510
-18 1 'y' 9 251
-Submitted batch job 2600511
-18 1 'y' 9 252
-Submitted batch job 2600512
-18 1 'y' 9 253
-Submitted batch job 2600513
-18 1 'y' 9 254
-Submitted batch job 2600514
-18 1 'y' 9 255
-Submitted batch job 2600515
-18 1 'y' 9 256
-Submitted batch job 2600516
-18 1 'y' 9 257
-Submitted batch job 2600517
-18 1 'y' 9 258
-Submitted batch job 2600518
-18 1 'y' 9 259
-Submitted batch job 2600519
-18 1 'y' 9 260
-Submitted batch job 2600520
-18 1 'y' 9 261
-Submitted batch job 2600521
-18 1 'y' 9 262
-Submitted batch job 2600522
-18 1 'y' 9 263
-Submitted batch job 2600523
-18 1 'y' 9 264
-Submitted batch job 2600524
-18 1 'y' 9 265
-Submitted batch job 2600525
-18 1 'y' 9 266
-Submitted batch job 2600526
-18 1 'y' 9 267
-Submitted batch job 2600527
-18 1 'y' 9 268
-Submitted batch job 2600528
-18 1 'y' 9 269
-Submitted batch job 2600529
-18 1 'y' 9 270
-Submitted batch job 2600530
-18 1 'y' 17 250
-Submitted batch job 2600531
-18 1 'y' 17 251
-Submitted batch job 2600532
-18 1 'y' 17 252
-Submitted batch job 2600533
-18 1 'y' 17 253
-Submitted batch job 2600534
-18 1 'y' 17 254
-Submitted batch job 2600535
-18 1 'y' 17 255
-Submitted batch job 2600536
-18 1 'y' 17 256
-Submitted batch job 2600537
-18 1 'y' 17 257
-Submitted batch job 2600538
-18 1 'y' 17 258
-Submitted batch job 2600539
-18 1 'y' 17 259
-Submitted batch job 2600540
-18 1 'y' 17 260
-Submitted batch job 2600541
-18 1 'y' 17 261
-Submitted batch job 2600542
-18 1 'y' 17 262
-Submitted batch job 2600543
-18 1 'y' 17 263
-Submitted batch job 2600544
-18 1 'y' 17 264
-Submitted batch job 2600545
-18 1 'y' 17 265
-Submitted batch job 2600546
-18 1 'y' 17 266
-Submitted batch job 2600547
-18 1 'y' 17 267
-Submitted batch job 2600548
-18 1 'y' 17 268
-Submitted batch job 2600549
-18 1 'y' 17 269
-Submitted batch job 2600550
-18 1 'y' 17 270
-Submitted batch job 2600551
-18 1 'y' 25 250
-Submitted batch job 2600552
-18 1 'y' 25 251
-Submitted batch job 2600553
-18 1 'y' 25 252
-Submitted batch job 2600554
-18 1 'y' 25 253
-Submitted batch job 2600555
-18 1 'y' 25 254
-Submitted batch job 2600556
-18 1 'y' 25 255
-Submitted batch job 2600557
-18 1 'y' 25 256
-Submitted batch job 2600558
-18 1 'y' 25 257
-Submitted batch job 2600559
-18 1 'y' 25 258
-Submitted batch job 2600560
-18 1 'y' 25 259
-Submitted batch job 2600561
-18 1 'y' 25 260
-Submitted batch job 2600562
-18 1 'y' 25 261
-Submitted batch job 2600563
-18 1 'y' 25 262
-Submitted batch job 2600564
-18 1 'y' 25 263
-Submitted batch job 2600565
-18 1 'y' 25 264
-Submitted batch job 2600566
-18 1 'y' 25 265
-Submitted batch job 2600567
-18 1 'y' 25 266
-Submitted batch job 2600568
-18 1 'y' 25 267
-Submitted batch job 2600569
-18 1 'y' 25 268
-Submitted batch job 2600570
-18 1 'y' 25 269
-Submitted batch job 2600571
-18 1 'y' 25 270
-Submitted batch job 2600572
+Submitted batch job 2602814
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W250_Sweepup.mat Doesn't Exist
+Submitted batch job 2602815
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W251_Sweepup.mat Doesn't Exist
+Submitted batch job 2602816
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W252_Sweepup.mat Doesn't Exist
+Submitted batch job 2602817
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W253_Sweepup.mat Doesn't Exist
+Submitted batch job 2602818
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W254_Sweepup.mat Doesn't Exist
+Submitted batch job 2602819
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W255_Sweepup.mat Doesn't Exist
+Submitted batch job 2602820
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W256_Sweepup.mat Doesn't Exist
+Submitted batch job 2602821
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W257_Sweepup.mat Doesn't Exist
+Submitted batch job 2602822
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W258_Sweepup.mat Doesn't Exist
+Submitted batch job 2602823
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W259_Sweepup.mat Doesn't Exist
+Submitted batch job 2602824
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W260_Sweepup.mat Doesn't Exist
+Submitted batch job 2602825
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W261_Sweepup.mat Doesn't Exist
+Submitted batch job 2602826
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W262_Sweepup.mat Doesn't Exist
+Submitted batch job 2602827
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W263_Sweepup.mat Doesn't Exist
+Submitted batch job 2602828
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W264_Sweepup.mat Doesn't Exist
+Submitted batch job 2602829
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W265_Sweepup.mat Doesn't Exist
+Submitted batch job 2602830
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W266_Sweepup.mat Doesn't Exist
+Submitted batch job 2602831
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W267_Sweepup.mat Doesn't Exist
+Submitted batch job 2602832
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W268_Sweepup.mat Doesn't Exist
+Submitted batch job 2602833
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W269_Sweepup.mat Doesn't Exist
+Submitted batch job 2602834
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W270_Sweepup.mat Doesn't Exist
+Submitted batch job 2602835
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W250_Sweepup.mat Doesn't Exist
+Submitted batch job 2602836
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W251_Sweepup.mat Doesn't Exist
+Submitted batch job 2602837
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W252_Sweepup.mat Doesn't Exist
+Submitted batch job 2602838
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W253_Sweepup.mat Doesn't Exist
+Submitted batch job 2602839
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W254_Sweepup.mat Doesn't Exist
+Submitted batch job 2602840
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W255_Sweepup.mat Doesn't Exist
+Submitted batch job 2602841
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W256_Sweepup.mat Doesn't Exist
+Submitted batch job 2602842
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W257_Sweepup.mat Doesn't Exist
+Submitted batch job 2602843
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W258_Sweepup.mat Doesn't Exist
+Submitted batch job 2602844
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W259_Sweepup.mat Doesn't Exist
+Submitted batch job 2602845
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W260_Sweepup.mat Doesn't Exist
+Submitted batch job 2602846
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W261_Sweepup.mat Doesn't Exist
+Submitted batch job 2602847
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W262_Sweepup.mat Doesn't Exist
+Submitted batch job 2602848
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W263_Sweepup.mat Doesn't Exist
+Submitted batch job 2602849
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W264_Sweepup.mat Doesn't Exist
+Submitted batch job 2602850
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W265_Sweepup.mat Doesn't Exist
+Submitted batch job 2602851
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W266_Sweepup.mat Doesn't Exist
+Submitted batch job 2602852
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W267_Sweepup.mat Doesn't Exist
+Submitted batch job 2602853
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W268_Sweepup.mat Doesn't Exist
+Submitted batch job 2602854
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W269_Sweepup.mat Doesn't Exist
+Submitted batch job 2602855
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W270_Sweepup.mat Doesn't Exist
+Submitted batch job 2602856
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W250_Sweepup.mat Doesn't Exist
+Submitted batch job 2602857
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W251_Sweepup.mat Doesn't Exist
+Submitted batch job 2602858
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W252_Sweepup.mat Doesn't Exist
+Submitted batch job 2602859
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W253_Sweepup.mat Doesn't Exist
+Submitted batch job 2602860
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W254_Sweepup.mat Doesn't Exist
+Submitted batch job 2602861
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W255_Sweepup.mat Doesn't Exist
+Submitted batch job 2602862
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W256_Sweepup.mat Doesn't Exist
+Submitted batch job 2602863
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W257_Sweepup.mat Doesn't Exist
+Submitted batch job 2602864
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W258_Sweepup.mat Doesn't Exist
+Submitted batch job 2602865
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W259_Sweepup.mat Doesn't Exist
+Submitted batch job 2602866
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W260_Sweepup.mat Doesn't Exist
+Submitted batch job 2602867
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W261_Sweepup.mat Doesn't Exist
+Submitted batch job 2602868
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W262_Sweepup.mat Doesn't Exist
+Submitted batch job 2602869
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W263_Sweepup.mat Doesn't Exist
+Submitted batch job 2602870
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W264_Sweepup.mat Doesn't Exist
+Submitted batch job 2602871
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W265_Sweepup.mat Doesn't Exist
+Submitted batch job 2602872
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W266_Sweepup.mat Doesn't Exist
+Submitted batch job 2602873
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W267_Sweepup.mat Doesn't Exist
+Submitted batch job 2602874
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W268_Sweepup.mat Doesn't Exist
+Submitted batch job 2602875
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W269_Sweepup.mat Doesn't Exist
+Submitted batch job 2602876
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W270_Sweepup.mat Doesn't Exist
+Submitted batch job 2602877
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W250_Sweepup.mat Doesn't Exist
+Submitted batch job 2602878
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W251_Sweepup.mat Doesn't Exist
+Submitted batch job 2602879
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W252_Sweepup.mat Doesn't Exist
+Submitted batch job 2602880
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W253_Sweepup.mat Doesn't Exist
+Submitted batch job 2602881
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W254_Sweepup.mat Doesn't Exist
+Submitted batch job 2602882
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W255_Sweepup.mat Doesn't Exist
+Submitted batch job 2602883
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W256_Sweepup.mat Doesn't Exist
+Submitted batch job 2602884
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W257_Sweepup.mat Doesn't Exist
+Submitted batch job 2602885
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W258_Sweepup.mat Doesn't Exist
+Submitted batch job 2602886
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W259_Sweepup.mat Doesn't Exist
+Submitted batch job 2602887
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W260_Sweepup.mat Doesn't Exist
+Submitted batch job 2602888
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W261_Sweepup.mat Doesn't Exist
+Submitted batch job 2602889
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W262_Sweepup.mat Doesn't Exist
+Submitted batch job 2602890
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W263_Sweepup.mat Doesn't Exist
+Submitted batch job 2602891
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W264_Sweepup.mat Doesn't Exist
+Submitted batch job 2602892
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W265_Sweepup.mat Doesn't Exist
+Submitted batch job 2602893
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W266_Sweepup.mat Doesn't Exist
+Submitted batch job 2602894
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W267_Sweepup.mat Doesn't Exist
+Submitted batch job 2602895
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W268_Sweepup.mat Doesn't Exist
+Submitted batch job 2602896
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W269_Sweepup.mat Doesn't Exist
+Submitted batch job 2602897
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W270_Sweepup.mat Doesn't Exist
+Submitted batch job 2602898
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W250_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602899
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W251_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602900
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W252_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602901
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W253_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602902
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W254_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602903
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W255_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602904
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W256_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602905
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W257_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602906
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W258_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602907
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W259_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602908
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W260_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602909
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W261_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602910
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W262_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602911
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W263_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602912
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W264_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602913
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W265_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602914
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W266_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602915
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W267_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602916
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W268_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602917
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W269_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602918
+./DATS/FIRST_1MAR21/RESU18_PT1y_F1000_W270_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602919
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W250_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602920
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W251_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602921
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W252_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602922
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W253_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602923
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W254_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602924
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W255_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602925
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W256_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602926
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W257_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602927
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W258_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602928
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W259_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602929
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W260_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602930
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W261_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602931
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W262_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602932
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W263_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602933
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W264_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602934
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W265_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602935
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W266_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602936
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W267_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602937
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W268_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602938
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W269_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602939
+./DATS/FIRST_1MAR21/RESU18_PT1y_F9000_W270_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602940
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W250_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602941
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W251_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602942
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W252_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602943
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W253_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602944
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W254_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602945
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W255_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602946
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W256_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602947
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W257_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602948
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W258_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602949
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W259_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602950
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W260_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602951
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W261_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602952
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W262_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602953
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W263_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602954
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W264_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602955
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W265_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602956
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W266_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602957
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W267_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602958
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W268_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602959
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W269_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602960
+./DATS/FIRST_1MAR21/RESU18_PT1y_F17000_W270_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602961
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W250_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602962
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W251_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602963
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W252_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602964
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W253_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602965
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W254_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602966
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W255_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602967
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W256_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602968
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W257_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602969
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W258_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602970
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W259_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602971
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W260_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602972
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W261_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602973
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W262_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602974
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W263_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602975
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W264_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602976
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W265_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602977
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W266_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602978
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W267_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602979
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W268_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602980
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W269_Sweepdown.mat Doesn't Exist
+Submitted batch job 2602981
+./DATS/FIRST_1MAR21/RESU18_PT1y_F25000_W270_Sweepdown.mat Doesn't Exist
