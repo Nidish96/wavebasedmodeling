@@ -256,8 +256,8 @@ switch SweepDir
             error('EMPTY Fi or Wi!')
         end        
 
-        U0 = UCus{fi}(1:MDL.Ndofs, wi) + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
-%         U0 = Ustat + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM
+%        U0 = UCus{fi}(1:MDL.Ndofs, wi) + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        U0 = Ustat + UCus{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM; use the static solution instead
         Ud0 = (2*pi*Wfrc)*UCus{fi}(MDL.Ndofs*2+(1:MDL.Ndofs), wi);
         
         clear UCus Fas
@@ -272,8 +272,8 @@ switch SweepDir
             error('EMPTY Fi or Wi!')
         end
         
-        U0 = UCds{fi}(1:MDL.Ndofs, wi) + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
-%         U0 = Ustat + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM
+%        U0 = UCds{fi}(1:MDL.Ndofs, wi) + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);
+        U0 = Ustat + UCds{fi}(MDL.Ndofs+(1:MDL.Ndofs), wi);  % Ignore the zero harmonic from HBM; use the static solution instead
         Ud0 = (2*pi*Wfrc)*UCds{fi}(MDL.Ndofs*2+(1:MDL.Ndofs), wi);
         
         clear UCus Fas

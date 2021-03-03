@@ -19,7 +19,7 @@ echo "DOF=$DOF"
 module load MATLAB/2019a
 
 # matlab -nodisplay -r "fsamp=2^$SMP; DOF=$DOF; famp=$FMP; sd=$REP; brb_transan_sing; quit"
-matlab -nodisplay -r "exc_pt=$EPT; exc_dir_str=[$DOF]; fsamp=2^$SMP; Wfrc=$WFRC; Famp=$FMP; Ttot=$TTOT; SweepDir=[$SWP]; brb_transan_firststudy_1Mar21; quit"
+matlab -nodisplay -r "exc_pt=$EPT; exc_dir_str=[$DOF]; fsamp=2^${SMP}; Wfrc=${WFRC}; Famp=${FMP}; Ttot=${TTOT}; SweepDir=[$SWP]; brb_transan_firststudy_1Mar21; quit"
 
 # matlab -nodisplay -r "Ca_savedat('Y'); quit"
 
